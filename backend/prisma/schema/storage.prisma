@@ -1,0 +1,101 @@
+model NoteStorage {
+  id            Int               @id @default(autoincrement())
+  folder_id     Int?              @map("folder_id")
+  url           String
+  name          String
+  original_name String
+  size          Int
+  extension     NoteExtension
+  created_at    DateTime          @default(now()) @map("created_at")
+  updated_at    DateTime          @default(now()) @updatedAt @map("updated_at")
+  folder        FolderStorage[]
+  tags          TagNotesMapping[]
+
+  @@map("notes")
+}
+
+model ImageStorage {
+  id            Int                @id @default(autoincrement())
+  folder_id     Int?               @map("folder_id")
+  url           String
+  name          String
+  original_name String
+  size          Int
+  extension     ImageExtension
+  created_at    DateTime           @default(now()) @map("created_at")
+  updated_at    DateTime           @default(now()) @updatedAt @map("updated_at")
+  folder        FolderStorage[]
+  tags          TagImagesMapping[]
+
+  @@map("images")
+}
+
+model VideoStorage {
+  id            Int                @id @default(autoincrement())
+  folder_id     Int?               @map("folder_id")
+  url           String
+  name          String
+  original_name String
+  size          Int
+  extension     VideoExtension
+  created_at    DateTime           @default(now()) @map("created_at")
+  updated_at    DateTime           @default(now()) @updatedAt @map("updated_at")
+  folder        FolderStorage[]
+  tags          TagVideosMapping[]
+
+  @@map("videos")
+}
+
+model AudioStorage {
+  id            Int               @id @default(autoincrement())
+  folder_id     Int?              @map("folder_id")
+  url           String
+  name          String
+  original_name String
+  size          Int
+  extension     AudioExtension
+  created_at    DateTime          @default(now()) @map("created_at")
+  updated_at    DateTime          @default(now()) @updatedAt @map("updated_at")
+  folder        FolderStorage[]
+  tags          TagAudioMapping[]
+
+  @@map("audio")
+}
+
+model ArchiveStorage {
+  id            Int                  @id @default(autoincrement())
+  folder_id     Int?                 @map("folder_id")
+  url           String
+  name          String
+  original_name String
+  size          Int
+  extension     ArchiveExtension
+  created_at    DateTime             @default(now()) @map("created_at")
+  updated_at    DateTime             @default(now()) @updatedAt @map("updated_at")
+  folder        FolderStorage[]
+  tags          TagArchivesMapping[]
+
+  @@map("archives")
+}
+
+model FolderStorage {
+  id          Int                 @id @default(autoincrement())
+  video_id    Int?                @map("video_id")
+  image_id    Int?                @map("image_id")
+  note_id     Int?                @map("note_id")
+  audio_id    Int?                @map("audio_id")
+  archive_id  Int?                @map("archive_id")
+  title       String              @db.VarChar(64)
+  description String?             @db.VarChar(128)
+  created_at  DateTime            @default(now()) @map("created_at")
+  updated_at  DateTime            @default(now()) @updatedAt @map("updated_at")
+  tags        TagFoldersMapping[]
+  
+  archive     ArchiveStorage?     @relation(fields: [archive_id], references: [id])
+  audio       AudioStorage?       @relation(fields: [audio_id], references: [id])
+  image       ImageStorage?       @relation(fields: [image_id], references: [id])
+  note        NoteStorage?        @relation(fields: [note_id], references: [id])
+  video       VideoStorage?       @relation(fields: [video_id], references: [id])
+
+  @@map("folders")
+}

@@ -1,0 +1,45 @@
+enum Role {
+  root
+  admin
+  moderator
+  user
+}
+
+enum ContentStatus {
+  draft
+  published
+  archived
+}
+
+enum NoteExtension {
+  doc
+  docx
+  pdf
+  word
+  txt
+  js
+}
+
+enum AudioExtension {
+  ogg
+  mp3
+}
+
+enum ArchiveExtension {
+  rar
+  zip
+}
+
+enum ImageExtension {
+  png
+  jpg
+  jpeg
+  webp
+  avif
+}
+
+enum VideoExtension {
+  mp4
+  webm
+  avi
+}

@@ -1,0 +1,86 @@
+model Tag {
+  id         Int                  @id @default(autoincrement())
+  name       String               @unique
+  created_at DateTime             @default(now()) @map("created_at")
+  updated_at DateTime             @default(now()) @updatedAt @map("updated_at")
+  arhives    TagArchivesMapping[]
+  audio      TagAudioMapping[]
+  folders    TagFoldersMapping[]
+  images     TagImagesMapping[]
+  notes      TagNotesMapping[]
+  videos     TagVideosMapping[]
+
+  @@map("tags")
+}
+
+model TagImagesMapping {
+  id         Int           @id @default(autoincrement())
+  tag_id     Int
+  image_id   Int
+  created_at DateTime      @default(now()) @map("created_at")
+  updated_at DateTime      @default(now()) @updatedAt @map("updated_at")
+  image      ImageStorage @relation(fields: [image_id], references: [id])
+  tag        Tag          @relation(fields: [tag_id], references: [id])
+
+  @@map("image_tags")
+}
+
+model TagVideosMapping {
+  id         Int           @id @default(autoincrement())
+  tag_id     Int?
+  video_id   Int?
+  created_at DateTime      @default(now()) @map("created_at")
+  updated_at DateTime      @default(now()) @updatedAt @map("updated_at")
+  tag        Tag?          @relation(fields: [tag_id], references: [id])
+  video      VideoStorage? @relation(fields: [video_id], references: [id])
+
+  @@map("video_tags")
+}
+
+model TagNotesMapping {
+  id         Int          @id @default(autoincrement())
+  tag_id     Int?
+  note_id    Int?
+  created_at DateTime     @default(now()) @map("created_at")
+  updated_at DateTime     @default(now()) @updatedAt @map("updated_at")
+  note       NoteStorage? @relation(fields: [note_id], references: [id])
+  tag        Tag?         @relation(fields: [tag_id], references: [id])
+
+  @@map("note_tags")
+}
+
+model TagAudioMapping {
+  id         Int           @id @default(autoincrement())
+  tag_id     Int?
+  audio_id   Int?
+  created_at DateTime      @default(now()) @map("created_at")
+  updated_at DateTime      @default(now()) @updatedAt @map("updated_at")
+  audio      AudioStorage? @relation(fields: [audio_id], references: [id])
+  tag        Tag?          @relation(fields: [tag_id], references: [id])
+
+  @@map("audio_tags")
+}
+
+model TagArchivesMapping {
+  id         Int             @id @default(autoincrement())
+  tag_id     Int?
+  archive_id Int?
+  created_at DateTime        @default(now()) @map("created_at")
+  updated_at DateTime        @default(now()) @updatedAt @map("updated_at")
+  archive    ArchiveStorage? @relation(fields: [archive_id], references: [id])
+  tag        Tag?            @relation(fields: [tag_id], references: [id])
+
+  @@map("archive_tags")
+}
+
+model TagFoldersMapping {
+  id         Int            @id @default(autoincrement())
+  tag_id     Int?
+  folder_id  Int?
+  created_at DateTime       @default(now()) @map("created_at")
+  updated_at DateTime       @default(now()) @updatedAt @map("updated_at")
+  folder     FolderStorage? @relation(fields: [folder_id], references: [id])
+  tag        Tag?           @relation(fields: [tag_id], references: [id])
+
+  @@map("folder_tags")
+}

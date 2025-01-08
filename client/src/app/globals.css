@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    .container {@apply w-auto;}
+}
+  
+@layer components {
+    .flex-center{@apply items-center justify-center;}
+    .h-inherit {height: inherit;}
+}
+  
+@layer utilities {
+    .text-balance {text-wrap: balance;}
+}
