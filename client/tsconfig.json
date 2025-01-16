@@ -23,6 +23,7 @@
       "@features/*": ["./src/features/*"],
 
       "@shared/*": ["./src/shared/*"],
+      "@contents/*": ["./src/contents/*"],
       "@providers/*": ["./src/providers/*"],
       "@lib/*": ["./src/shared/lib/*"],
 

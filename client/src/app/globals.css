@@ -3,10 +3,11 @@
 @tailwind utilities;
 
 @layer base {
-    .container {@apply w-auto;}
+    .container {@apply max-w-FHD mx-auto h-full; padding-inline: clamp(64px,5vw,12px);}
 }
-  
+
 @layer components {
+    .wrapper {@apply py-6 gap-12 grid min-h-full grid-rows-[minmax(64px,auto)_1fr_minmax(256px,auto)];}
     .flex-center{@apply items-center justify-center;}
     .h-inherit {height: inherit;}
 }

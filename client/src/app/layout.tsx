@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-
 import Providers from "@app/providers/Providers";
 
 export const metadata: Metadata = {
@@ -10,11 +10,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
   return (
-    <html lang="en">
-      <body className={`antialiased`}>
+    <html lang="en" className="h-full">
+      <body className={"bg-black h-inherit text-white"}>
         <Providers>
           {children}
         </Providers>
+        <SpeedInsights />
       </body>
     </html>
   );
