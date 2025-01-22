@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { DatabaseService } from '../database/database.service';
+import { DatabaseService } from '../systems/database/database.service';
 import { returnUserObj } from './return.user.obj';
 import { MetaIF } from 'src/interfaces/system.interfaces';
 
