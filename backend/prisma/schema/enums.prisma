@@ -5,41 +5,15 @@ enum Role {
   user
 }
 
-enum ContentStatus {
+enum VisibleStatus {
   draft
   published
   archived
 }
 
-enum NoteExtension {
-  doc
-  docx
-  pdf
-  word
-  txt
-  js
-}
-
-enum AudioExtension {
-  ogg
-  mp3
-}
-
-enum ArchiveExtension {
-  rar
-  zip
-}
-
-enum ImageExtension {
-  png
-  jpg
-  jpeg
-  webp
-  avif
-}
-
-enum VideoExtension {
-  mp4
-  webm
-  avi
+enum RatingSystem {
+  everyone
+  teen
+  mature
+  adult
 }
