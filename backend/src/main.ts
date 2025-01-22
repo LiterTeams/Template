@@ -1,7 +1,7 @@
 import { NestFactory, HttpAdapterHost } from "@nestjs/core";
-import { AppModule } from "./modules/app/app.module";
+import { AppModule } from "./modules/systems/app/app.module";
 import { ConfigService } from "@nestjs/config";
-import { PrismaExceptionFilter } from "./modules/prisma/prisma.exception.filter";
+import { PrismaExceptionFilter } from "./modules/systems/prisma/prisma.exception.filter";
 import * as express from "express";
 import { join } from "path";
 // import { TimeoutInterceptor } from "./interceptors/timeout.interceptor";
