@@ -1,12 +1,9 @@
 "use client";
 
-import Header from "@widgets/header/ui/Header";
-import Footer from "@widgets/footer/ui/Footer";
-
-// import { usePathname } from "next/navigation";
+import Header from "@widgets/header/Header";
+import Footer from "@widgets/footer/Footer";
 
 export default function PageProvider({children}:{children:React.ReactNode}){
-    // const pathname = usePathname();
     return(
         <div className="wrapper">
             <Header />

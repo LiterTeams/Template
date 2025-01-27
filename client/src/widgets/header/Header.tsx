@@ -1,10 +1,10 @@
 "use client";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@app/i18n/routing";
 
 import { FaBurger } from "react-icons/fa6";
 
-import { headerLinksNavigation } from "@entities/config/variables";
+import { headerLinksNavigation } from "@app/shared/config/variables";
 
 export default function Header(){
 

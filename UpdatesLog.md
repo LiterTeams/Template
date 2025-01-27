@@ -1,5 +1,10 @@
 # Updates Log Rus
 
+## NexstJS - beta ver 1.0.6 | 27.01.2025
+
+### Новое
+1. Добавлена локализация - i18n (next-intl);
+
 ## NexstJS - beta ver 1.0.5 | 22.01.2025
 
 ### Новое

@@ -5,21 +5,21 @@ import { AiFillPlayCircle, AiFillPauseCircle, AiOutlineFullscreen, AiOutlineFull
 import { BsFillVolumeDownFill, BsFillVolumeMuteFill } from "react-icons/bs";
 import { MdFeaturedVideo } from "react-icons/md";
 
-import { LCPVideoControlsIF } from "@entities/interfaces/player.interface";
-import RangeInput from "@app/shared/inputs/range/ui/RangeInput";
+import { LCPVideoControlsIF } from "@shared/interfaces/player.interface";
+import RangeInput from "@shared/ui/inputs/range/ui/RangeInput";
 
 
-export default function LiteConnectControls({isPlaying,isFullscreen,isMuted,volume,progress,currentVideoDurationl,totalVideoDuration,togglePlay,toggleFullscreen,handleVolumeChange,handelMuteChange}:LCPVideoControlsIF){
+export default function LiteConnectControls({isPlaying,isFullscreen,isMuted,volume,progressBar,currentVideoDurationl,totalVideoDuration,handleTogglePlay,handletoggleFullscreen,handleVolumeChange,handelMuteChange}:LCPVideoControlsIF){
     
     const iconSize = 24;
 
     return(
         <div className="absolute z-[2] left-0 bottom-0 w-full min-h-12 p-3 pointer-events-auto">
             <div className="flex mx-auto flex-col gap-3">
-                <LiteConnectPlayLine progress={progress} />
+                <LiteConnectPlayLine progressBar={progressBar} />
                 <div className="flex gap-3 justify-between">
                     <div className="flex items-center gap-3">
-                        <button onClick={togglePlay}>
+                        <button onClick={handleTogglePlay}>
                             {isPlaying ? <AiFillPauseCircle size={iconSize} color="white" /> : <AiFillPlayCircle size={iconSize} color="white" />}
                         </button>
                         <div className="flex items-center gap-2 group">
@@ -40,7 +40,7 @@ export default function LiteConnectControls({isPlaying,isFullscreen,isMuted,volu
                         <button>
                             <MdFeaturedVideo size={iconSize} color="white" />
                         </button>
-                        <button onClick={toggleFullscreen}>
+                        <button onClick={handletoggleFullscreen}>
                             {isFullscreen ? <AiOutlineFullscreenExit size={iconSize} color="white" /> : <AiOutlineFullscreen size={iconSize} color="white" />}
                         </button>
                     </div>

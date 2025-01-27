@@ -18,15 +18,11 @@
       "@public/*": ["./public/*"],
       "@app/*": ["./src/*"],
       "@api/*": ["./src/app/api/*"],
-
       "@entities/*": ["./src/entities/*"],
       "@features/*": ["./src/features/*"],
-
       "@shared/*": ["./src/shared/*"],
-      "@contents/*": ["./src/contents/*"],
-      "@providers/*": ["./src/providers/*"],
+      "@process/*": ["./src/process/*"],
       "@lib/*": ["./src/shared/lib/*"],
-
       "@views/*": ["./src/views/*"],
       "@widgets/*": ["./src/widgets/*"],
     }
