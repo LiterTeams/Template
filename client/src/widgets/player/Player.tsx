@@ -1,65 +1,89 @@
 "use client";
-import React from "react";
-import useVideoPlayer from "@shared/hooks/system/useVideoPlayer";
+import { FC } from "react";
 
-import { TbError404Off } from "react-icons/tb";
+import usePlayer from "./hooks/usePlayer";
 
-import LiteConnectVideo from "./ui/LiteConnectVideo";
-import LiteConnectControls from "./ui/LiteConnectControls";
-import LiteConnectOverlay from "./ui/LiteConnectOverlay";
+import Controls from "./ui/Controls";
+import Video from "./ui/Video";
+import OverlaySourceError from "./ui/OverlaySourceError";
 
-import { LCPVideoPlayerIF } from "@shared/interfaces/player.interface";
+import { PlayerProps } from "./types/controls.interfaces";
 
-export default function LiteConnectPlayer({className, sources, poster, preload="auto", autoPlay, loop=false, muted=true, useControls=false, playOnClick, playOnHover}:LCPVideoPlayerIF){
+const Player: FC<PlayerProps> = ({...props}) => {
 
-    const { ref, isPlaying, progressBar, isFullscreen, isMuted, volume, currentVideoDurationl, totalVideoDuration, handleTogglePlay, handleToggleFullscreen, handelMuteChange, handleVolumeChange, onLoadedMetadata, onTimeUpdate } = useVideoPlayer(autoPlay, muted);
+    const { className, loop, muted, poster, preload="auto", sources, iconSize, showControls, autoPlay, disablePictureInPicture, disableRemotePlayback } = props;
+    const size = iconSize || 18;
+
+    const { 
+        videoRef,
+        playerRef,
+        isLoading,
+        isPlaying,
+        isEnded,
+        isFullscreen,
+        isLooped,
+        isMuted,
+        volume,
+        currentTime,
+        totalTime,
+        progress,
+        isPictureToPicture,
+        handleTogglePlay,
+        handelRepeat,
+        handleForwardSkip,
+        handleBackwardSkip,
+        handleLoadedMetadata,
+        handleTimeUpdate,
+        handleEnded,
+        handelMuteChange,
+        handelVolumeChange,
+        handleToggleFullscreen,
+        handelTogglePictureToPicture
+    } = usePlayer(loop,muted,autoPlay);
+
+    const videoProps = { 
+        ref: videoRef,
+        preload,
+        isLooped,
+        isMuted,
+        poster,
+        sources,
+        disablePictureInPicture,
+        disableRemotePlayback,
+        handleTogglePlay,
+        handleLoadedMetadata,
+        handleTimeUpdate,
+        handleEnded,
+    }
+
+    const ControlsProps = {
+        isPlaying,
+        isEnded,
+        isFullscreen,
+        isPictureToPicture,
+        isMuted,
+        volume,
+        currentTime,
+        totalTime,
+        progress,
+        iconSize: size,
+        handleTogglePlay,
+        handelRepeat,
+        handleForwardSkip,
+        handleBackwardSkip,
+        handelMuteChange,
+        handelVolumeChange,
+        handleToggleFullscreen,
+        handelTogglePictureToPicture,
+    }
 
     return(
-        <div className={`${isFullscreen ? "fixed left-0 top-0 w-dvw h-dvh z-10" : "relative"} overflow-hidden pointer-events-none duration-300 ${className}`}>
-            {sources && <LiteConnectVideo
-                ref={ref}
-                preload={preload}
-                loop={loop}
-                isFullscreen={isFullscreen}
-                muted={isMuted}
-                sources={sources}
-                poster={poster}
-                playOnClick={playOnClick}
-                playOnHover={playOnHover}
-                onLoadedMetadata={onLoadedMetadata}
-                onTimeUpdate={onTimeUpdate}
-                handleTogglePlay={handleTogglePlay}
-            />}
-
-            {isFullscreen && sources && 
-                <div className="absolute w-full h-full left-0 top-0 flex flex-col justify-between pointer-events-none">
-                    <div className="w-full bg-black h-16" />
-                    <div className="w-full bg-black h-16" />
-                </div>
-            }
-            
-            {!sources &&
-                <LiteConnectOverlay className="flex flex-col flex-center border border-white border-opacity-25 rounded-xl">
-                    <TbError404Off className="text-orange-500 duration-300 animate-pulse" size={64} />
-                    <h2 className="text-orange-500 duration-300 font-bold animate-pulse">Не удалось загрузить видео из источников или их нет</h2>
-                </LiteConnectOverlay>
-            }
-            
-            {useControls && sources && 
-                <LiteConnectControls
-                    isMuted={isMuted}
-                    isPlaying={isPlaying}
-                    isFullscreen={isFullscreen}
-                    volume={volume}
-                    progressBar={progressBar}
-                    currentVideoDurationl={currentVideoDurationl}
-                    totalVideoDuration={totalVideoDuration}
-                    handleTogglePlay={handleTogglePlay}
-                    handletoggleFullscreen={handleToggleFullscreen}
-                    handleVolumeChange={handleVolumeChange}
-                    handelMuteChange={handelMuteChange}
-                />
-            }
+        <div ref={playerRef} className={`${isPictureToPicture ? "fixed right-6 bottom-6 w-96 h-56" : "relative w-full h-full"} overflow-hidden pointer-events-none duration-300 border border-white border-opacity-15 ${className}`}>
+            {sources && <Video {...videoProps} />}
+            {showControls && <Controls {...ControlsProps} />}
+            {!sources && <OverlaySourceError />}
         </div>
     )
 }
+
+export default Player;

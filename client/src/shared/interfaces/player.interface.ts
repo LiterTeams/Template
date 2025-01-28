@@ -1,10 +1,5 @@
 import { ChangeEvent, Ref, VideoHTMLAttributes } from "react";
 
-interface OverlayIF {
-    className?: string;
-    children?: ReactNode
-}
-
 interface LCPVideoSourceIF {
     src: string;
     mimetype: string;
@@ -12,7 +7,6 @@ interface LCPVideoSourceIF {
 
 interface LCPVideoPlayerIF extends Pick<VideoHTMLAttributes<HTMLVideoElement>, "preload"|"loop"|"muted"|"autoPlay"|"poster"> {
     className?: string;
-    sources?: LCPVideoSourceIF[] | LCPVideoSourceIF | string;
     volume?: number;
     useControls?: boolean;
     playOnClick?: boolean;

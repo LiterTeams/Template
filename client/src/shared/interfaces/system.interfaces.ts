@@ -27,6 +27,7 @@ interface _ValidateOptionsIF {
 
 interface _ButtonIF extends ButtonHTMLAttributes<HTMLButtonElement> {
     isLink?: boolean;
+    variant?: "primary" | "secondary" | "ghost" | "undefined";
     children?: React.ReactNode;
     label?: string;
 }
