@@ -1,22 +1,35 @@
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 
-import { TimelineControlsProps } from "../types/controls.interfaces";
+import ProgressBar from "./ProgressBar";
+import TimeLineChapters from "./TimeLineChapters";
 
-import durationConver from "@shared/lib/durationConver";
+import durationConver from "@app/shared/lib/helpers/durationConver";
+
+import { TimelineControlsProps } from "../types/player";
 
 const Timeline: FC<TimelineControlsProps> = ({...props}) => {
 
-    const { currentTime, totalTime, progress } = props;
+    const { currentTime, totalTime, progress, onSeek } = props;
     const currentDuration = durationConver(currentTime);
     const totalDuration = durationConver(totalTime);
 
+    const handleSeek = (e: MouseEvent<HTMLDivElement>) => {
+        if (totalTime <= 0) return;
+
+        const timeline = e.currentTarget;
+        const rect = timeline.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left;
+        const newTime = (offsetX / rect.width) * totalTime;
+
+        onSeek(newTime);
+    };
+
     return(
         <div className="flex flex-grow items-center gap-3">
-            <p>{currentDuration} / {totalDuration}</p>
-            <div className="relative flex-grow h-[2px]">
-                <div style={{width:`${progress}%`}} className={`absolute z-[1] duration-300 left-0 top-0 h-inherit bg-orange-600 rounded-lg`} />
-                <span className="absolute z-[1] bg-orange-600 rounded-full duration-300 size-2 -top-1" style={{left: `${progress}%`}} />
-                <div className="absolute z-[0] left-0 top-0 w-full h-inherit bg-white rounded-lg" />
+            <p className="flex-shrink-0 pointer-events-none">{currentDuration} / {totalDuration}</p>
+            <div onClick={handleSeek} className="relative duration-300 w-full h-2 hover:h-3 bg-white/20 rounded-full group cursor-pointer">
+                <ProgressBar progress={progress} />
+                <TimeLineChapters totalTime={totalTime} />
             </div>
         </div>
     )

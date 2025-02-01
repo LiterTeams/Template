@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import breadcrumbGenerate from "@shared/lib/breadcrumbGenerate";
+import breadcrumbGenerate from "@app/shared/lib/helpers/breadcrumbGenerate";
 import { BreadcrumbIF } from "@entities/interfaces/breadcrumb.interfaces";
 
 export default function Breadcrumb({className, items = undefined}:{className?: string; items?:BreadcrumbIF[] | undefined}){

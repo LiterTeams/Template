@@ -1,22 +1,22 @@
-type UserRoleEnumT = "user" | "moderator" | "admin" | "root";
-type NewsStatusEnumT = "draft" | "published" | "archived";
+type UserRolePropsT = "user" | "moderator" | "admin" | "root";
+type ContentStatusPropsT = "draft" | "published" | "archived";
 
 type UnitEnumT = "B" | "BT" | "KB" | "MB" | "GB" | "TB";
 
-type ProjectStatusEnumT = "in development" | "completed";
-type LocaleEnumT = "ru" | "pl" | "ua" | "us" | "de" | "fr" | "jp";
-type ImageExtensionEnumT = "png" | "jpg" | "jpeg" | "webp" | "avif";
-type VideoExtensionEnumT = "mp4" | "webm" | "avi";
-type NoteExtensionEnumT = "doc" | "docx" | "pdf" | "txt" | "word" | "js";
-type AudioExtensionEnumT = "ogg" | "mp3";
-type ArchiveExtensionEnumT = "rar" | "zip";
-type ExtensionsEnumT = ImageExtensionEnumT | VideoExtensionEnumT | NoteExtensionEnumT | AudioExtensionEnumT | ArchiveExtensionEnumT;
+type ProjectStatusPropsT = "dev" | "completed";
+type LocalePropsT = "ru" | "pl" | "ua" | "us" | "de" | "fr" | "jp";
+type ImageExtensionPropsT = "png" | "jpg" | "jpeg" | "webp" | "avif";
+type VideoExtensionPropsT = "mp4" | "webm" | "avi";
+type NoteExtensionPropsT = "doc" | "docx" | "pdf" | "txt" | "word" | "js";
+type AudioExtensionPropsT = "ogg" | "mp3" | "acc";
+type ArchiveExtensionPropsT = "rar" | "zip" | "7zip";
+type ExtensionsPropsT = ImageExtensionPropsT | VideoExtensionPropsT | NoteExtensionPropsT | AudioExtensionPropsT | ArchiveExtensionPropsT;
 
 export type {
-    UserRoleEnumT,
-    LocaleEnumT,
-    NewsStatusEnumT,
+    UserRolePropsT,
+    LocalePropsT,
+    ContentStatusPropsT,
     UnitEnumT,
-    ProjectStatusEnumT,
-    ImageExtensionEnumT, VideoExtensionEnumT, NoteExtensionEnumT, AudioExtensionEnumT, ArchiveExtensionEnumT, ExtensionsEnumT
+    ProjectStatusPropsT,
+    ExtensionsPropsT, ImageExtensionPropsT, VideoExtensionPropsT, NoteExtensionPropsT, AudioExtensionPropsT, ArchiveExtensionPropsT
 }

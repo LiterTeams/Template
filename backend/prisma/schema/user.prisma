@@ -5,7 +5,7 @@ model User {
   nickname String? @db.VarChar(64)
   blocking Boolean @default(false)
 
-  privilege Privilege[]
+  role Role @default(user)
 
   created_at DateTime @default(now()) @map("created_at")
   updated_at DateTime @updatedAt @map("updated_at")

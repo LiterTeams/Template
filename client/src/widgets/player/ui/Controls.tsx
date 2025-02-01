@@ -6,14 +6,58 @@ import PlayControls from "./PlayControls";
 import Timeline from "./Timeline";
 import PreferenseControls from "./PreferenseControls";
 
-import { ControlsProps } from "../types/controls.interfaces";
+import { ControlsProps } from "../types/player";
 import Button from "@app/shared/ui/buttons/Button";
 
 const Controls: FC<ControlsProps> = ({...props}) => {
 
-    const { isPlaying, isEnded, isFullscreen, isPictureToPicture, isMuted, volume, progress, currentTime, totalTime, iconSize } = props;
-    const { handleTogglePlay, handelRepeat, handleForwardSkip, handleBackwardSkip, handelMuteChange, handelVolumeChange } = props;
-    const { handleToggleFullscreen, handelTogglePictureToPicture } = props;
+    console.log(props);
+
+    const {
+        isPlaying,
+        isEnded,
+        isFullscreen,
+        isPictureToPicture,
+        isMuted,
+        volume,
+        showControls,
+        progress,
+        currentTime,
+        totalTime,
+        iconSize,
+        isLooped,
+        voices,
+        sources,
+        subtitles,
+        currentQuality,
+        currentSubtitle,
+        currentVoice,
+        autoRemoveMissingControllers,
+        useAberrationEffect,
+        useBlackoutEffect,
+        useMovieMode,
+        useVFX,
+    } = props;
+
+    const {
+        handleTogglePlay,
+        handelRepeat,
+        handleForwardSkip,
+        handleBackwardSkip,
+        handelVolumeChange,
+        handleToggleFullscreen,
+        handelTogglePictureToPicture,
+        handleToggleSubtitles,
+        handleChangeQuality,
+        handleVoiceChange,
+        toggleMute,
+        toggleLoop,
+        toggleVFX,
+        toggleMovieMode,
+        toggleAberrationEffect,
+        toggleBlackoutEffect,
+        onSeek,
+    } = props;
 
     const size = iconSize || 18;
 
@@ -28,27 +72,49 @@ const Controls: FC<ControlsProps> = ({...props}) => {
         handelRepeat,
         handleForwardSkip,
         handleBackwardSkip,
-        handelMuteChange,
+        toggleMute,
         handelVolumeChange,
     }
 
     const TimelineProps = {
         currentTime,
         totalTime,
-        progress
+        progress,
+        onSeek,
     }
 
     const PreferenseControlsProps = { 
         iconSize: size,
         isFullscreen,
+        showControls,
+        useAberrationEffect,
+        useBlackoutEffect,
+        useMovieMode,
+        useVFX,
+        isLooped,
         isPictureToPicture,
+        voices,
+        sources,
+        subtitles,
+        currentQuality,
+        currentSubtitle,
+        currentVoice,
+        autoRemoveMissingControllers,
         handelTogglePictureToPicture,
         handleToggleFullscreen,
+        handleVoiceChange,
+        handleToggleSubtitles,
+        handleChangeQuality,
+        toggleLoop,
+        toggleVFX,
+        toggleMovieMode,
+        toggleAberrationEffect,
+        toggleBlackoutEffect,
     }
 
     return(
         <>
-            <div className={`absolute z-[2] left-0 bottom-0 duration-300 ${isFullscreen ? "p-6" : "p-3"} w-full h-auto pointer-events-none`}>
+            <div className={`absolute ${showControls ? "opacity-100" : "opacity-0"} z-[2] left-0 bottom-0 duration-300 ${isFullscreen ? "p-6" : "p-3"} w-full h-auto`}>
                 <div className="flex flex-grow gap-6 rounded-xl bg-black/50 p-2 pointer-events-auto">
                     <PlayControls {...PlayControlsProps} />
                     <Timeline {...TimelineProps} />

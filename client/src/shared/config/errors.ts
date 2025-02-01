@@ -1,4 +1,4 @@
-import ErrorsIF from "@entities/interfaces/error.interfaces";
+import ErrorsIF from "../types/error.interfaces";
 
 const errors: ErrorsIF = {
     rus:{

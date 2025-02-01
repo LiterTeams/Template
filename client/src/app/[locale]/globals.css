@@ -10,6 +10,23 @@
     .wrapper {@apply py-6 gap-12 grid min-h-full grid-rows-[minmax(64px,auto)_1fr_minmax(256px,auto)];}
     .flex-center{@apply items-center justify-center;}
     .h-inherit {height: inherit;}
+
+    .btn-ghost {@apply flex items-center justify-center rounded-md size-9 p-1 bg-black/25 border border-white border-opacity-15 duration-300 hover:bg-white/25;}
+
+    .noise {
+        @apply absolute left-0 top-0 right-0 bottom-0 opacity-10;
+        background: rgba(0, 0, 0, 0.05);
+        background-image: radial-gradient(circle, rgba(0, 0, 0, 0.1) 10%, transparent 20%);
+        mix-blend-mode: overlay;
+    }
+
+    .blackout {
+        @apply absolute left-0 top-0 size-full;
+
+        /* height: 100vh; */
+        /* margin: 0; */
+        background: radial-gradient(circle, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
+    }
 }
   
 @layer utilities {
