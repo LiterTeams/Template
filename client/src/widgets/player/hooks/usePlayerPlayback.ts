@@ -1,7 +1,7 @@
 "use client";
 import { RefObject, useCallback, useEffect, useRef } from "react";
 
-import parseTime from "@app/shared/lib/helpers/parseTime";
+import parseTime from "@app/shared/lib/helpers/system/parseTime";
 
 interface Props {
     videoRef: RefObject<HTMLVideoElement>;
