@@ -1,6 +1,6 @@
 "use client";
-import { MobxStoreContext } from "@shared/lib/hooks/system/useMobxStore";
-import Store from "@shared/lib/store/store";
+import { MobxStoreContext } from "@app/shared/lib/hooks/system/general/useMobxStore";
+import Store from "@app/shared/lib/store/RootStore";
 export default function MobxProvider({children}:{children:React.ReactNode}){
     return <MobxStoreContext.Provider value={new Store()}>{children}</MobxStoreContext.Provider>
 }
