@@ -1,2 +1,2 @@
-import HomePageView from "@views/HomePageView";
+import HomePageView from "@app/views/HomePageView";
 export default function HomePage(){return <HomePageView />}
