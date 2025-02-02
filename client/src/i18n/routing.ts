@@ -1,7 +1,7 @@
 import {defineRouting} from "next-intl/routing";
 import {createNavigation} from "next-intl/navigation";
 
-import { LocalePropsT } from "@shared/types/enum.types";
+import { LocalePropsT } from "@app/shared/types/system/types";
 
 const locales: LocalePropsT[] = ["ru", "pl", "ua", "us", "de", "fr", "jp"];
 

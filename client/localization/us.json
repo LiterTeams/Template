@@ -1,5 +1,21 @@
 {
     "Navigation": {
         "home": "Home"
+    },
+    "Home": {
+        "hero": "Client and server application template with ready-made solutions",
+        
+        "changelog": "changelog",
+        "changelog-text": "Be the first to know about new changes and improvements in the finished NexstJS template.",
+
+        "templates": "templates",
+        "templates-text": "Additional templates to the current template.",
+
+        "libraries": "libraries",
+        "libraries-text": "Custom template libraries",
+
+        "system-custom": "The project contains system and user folders.",
+        "system": "It is better not to touch the System folders, since everything is necessary for the operation of the client and server applications.",
+        "custom": "You can already use the Custom folders as you wish. It is intended for your decisions."
     }
 }

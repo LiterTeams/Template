@@ -1,5 +1,21 @@
 {
     "Navigation": {
         "home": "Heim"
+    },
+    "Home": {
+        "hero": "Шаблон клиентского и серверного приложения c готовыми решениями",
+        
+        "changelog": "changelog",
+        "changelog-text": "Be the first to know about new changes and improvements in the finished NexstJS template.",
+
+        "templates": "templates",
+        "templates-text": "Additional templates to the current template.",
+
+        "libraries": "libraries",
+        "libraries-text": "Custom template libraries",
+
+        "system-custom": "В проекте присутствую папки system и custom.",
+        "system": "Папки System лучше не трогать, так как там всё необходимо для работы клиентского и серверного приложения",
+        "custom": "Папки Custom уже можете использовать как хотите. Она предназначена для ваших решений."
     }
 }
