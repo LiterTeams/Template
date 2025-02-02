@@ -3,7 +3,7 @@ import { FC, MouseEvent } from "react";
 import ProgressBar from "./ProgressBar";
 import TimeLineChapters from "./TimeLineChapters";
 
-import durationConver from "@app/shared/lib/helpers/durationConver";
+import durationConver from "@app/shared/lib/helpers/system/durationConver";
 
 import { TimelineControlsProps } from "../types/player";
 
