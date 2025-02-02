@@ -1,23 +1,43 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import checkFileFormat from "@shared/lib/helpers/system/checkFileFormat";
+import { ExtensionsPropsT } from "@shared/types/system/types";
+import fileDestructurization from "@shared/lib/helpers/system/fileDestructurization";
 
-export default function useFile(allowedMimetypes?: string[], multiple: boolean = false) {
+export default function useFile(allowedMimetypes: ExtensionsPropsT | ExtensionsPropsT[] = [], multiple: boolean = false) {
     const [files, setFiles] = useState<File[]>([]);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);  // Реф для input
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = event.target.files;
         if (!selectedFiles) return console.warn("useFile (handleFileChange) - NO FILES!");
 
-        let fileArray = Array.from(selectedFiles);
+        const fileArray = Array.from(selectedFiles);
+        const invalidFiles: File[] = [];
 
-        if (allowedMimetypes) fileArray = fileArray.filter(file => allowedMimetypes.includes(file.type));
+        const validFiles = fileArray.filter(file => {
+            const { extension } = fileDestructurization(file);
+            if (checkFileFormat(extension, allowedMimetypes)) {
+                return true;
+            } else {
+                invalidFiles.push(file);
+                return false;
+            }
+        });
 
-        setFiles(multiple ? [...files, ...fileArray] : fileArray);
+        if (invalidFiles.length > 0) {
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+            }
+            console.warn("Some files are not supported and were removed:", invalidFiles);
+        }
+
+        setFiles(multiple ? [...files, ...validFiles] : validFiles);
     };
 
     const removeFile = (index: number) => setFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
 
     const resetFiles = () => setFiles([]);
 
-    return { files, handleFileChange, removeFile, resetFiles };
+    return { fileInputRef, files, handleFileChange, removeFile, resetFiles };
 }

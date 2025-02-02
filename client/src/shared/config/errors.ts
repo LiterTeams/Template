@@ -1,20 +1,33 @@
-import ErrorsIF from "../types/error.interfaces";
+import ErrorsProps from "../types/system/error.interfaces";
 
-const errors: ErrorsIF = {
-    rus:{
+const errors: ErrorsProps = {
+    ru:{
         required: "Обязательно к заполнению",
         empety: "Поле не должно быть пустым",
         xss: "Присутствует xss код",
         mimes: "Файл должен соответствовать расширениям :value",
+        regex: "",
         lang: {
-            Eng: "Поле должно содержать только английские символы",
-            Ru: "Поле должно содержать только русские символы",
-            Deu: "Поле должно содержать только немейкие символы",
+            eng: "Поле должно содержать только английские символы",
+            ru: "Поле должно содержать только русские символы",
+            deu: "Поле должно содержать только немейкие символы",
+        },
+        compare: {
+            password: "Присутствует несовпадение паролей",
         },
         format: {
             email: "Ошибка в формате электронной почты.",
             tel: "Ошибка в формате номера телефона",
             IP: "Ошибка в формате IP адреса",
+            url: "",
+            uuid: "",
+        },
+        special: {
+            chars: "Поле не должно содержать спецсимволы (@,/,!,#,$,%,^ и т.п)",
+            whitespace: "Поле не должно содержать пробелы",
+            lowercase: "Строки должны быть в нижем регистре",
+            uppercase: "Строки должны начинаться с заглавной",
+            capitalize: "Строки должны быть в верхнем регистре",
         },
         oauth: {
             signIn: "Авторизация невозможна. Неккоректный логин или пароль",
@@ -38,11 +51,13 @@ const errors: ErrorsIF = {
             file: "Минимальный размер файла :value",
             str: "Минимальная длина поля должна состоять из :value символов",
             int: "Количество не должно быть меньше :value",
+            date: "Дата не должна быть раньше :value",
         },
         max: {
             file: "Максимальный размер файла :value",
             str: "Максимальная длина поля не должна превышать :value символов",
             int: "Количество не должно быть больше :value",
+            date: "Дата не должна быть позже :value",
         },
         status:{
             200: ":status | Успешно",
@@ -60,10 +75,21 @@ const errors: ErrorsIF = {
         empety: "This field must not be empty",
         xss: "The field must not contain code",
         mimes: "The file must match the extensions :value",
+        regex: "",
         lang: {
-            Eng: "The field must contain only English characters",
-            Ru: "The field must contain only Russian characters",
-            Deu: "",
+            eng: "The field must contain only English characters",
+            ru: "The field must contain only Russian characters",
+            deu: "",
+        },
+        compare: {
+            password: "",
+        },
+        special: {
+            chars: "",
+            whitespace: "",
+            lowercase: "",
+            uppercase: "",
+            capitalize: "",
         },
         oauth: {
             signIn: "Authorization is not possible. Incorrect login or password.",
@@ -87,16 +113,20 @@ const errors: ErrorsIF = {
             email: "Email format error",
             tel: "Phone format error",
             IP: "IP address error",
+            url: "",
+            uuid: "",
         },
         min: {
             file: "Minimum file size :value",
             str: "Minimum field length must be :value characters",
             int: "The number should not be less :value",
+            date: "",
         },
         max: {
             file: "Maximum file size :value",
             str: "The maximum field length must not be more than :value characters",
             int: "The quantity should not be more :value",
+            date: "",
         },
         status:{
             200: ":status | Success",
@@ -114,10 +144,21 @@ const errors: ErrorsIF = {
         empety: "",
         xss: "",
         mimes: "",
+        regex: "",
         lang: {
-            Eng: "",
-            Ru: "",
-            Deu: "",
+            eng: "",
+            ru: "",
+            deu: "",
+        },
+        compare: {
+            password: "",
+        },
+        special: {
+            chars: "",
+            whitespace: "",
+            lowercase: "",
+            uppercase: "",
+            capitalize: "",
         },
         oauth: {
             signIn: "Eine Autorisierung ist nicht möglich. Falscher Login oder Passwort",
@@ -141,16 +182,20 @@ const errors: ErrorsIF = {
             email: "",
             tel: "",
             IP: "",
+            url: "",
+            uuid: "",
         },
         min: {
             file: "",
             str: "",
             int: "",
+            date: "",
         },
         max: {
             file: "",
             str: "",
             int: "",
+            date: "",
         },
         status:{
             200: ":status | ",

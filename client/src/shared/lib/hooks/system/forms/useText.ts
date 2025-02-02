@@ -1,8 +1,10 @@
 "use client";
-import { useState } from "react";
+import useValidate from "../validate/useValidate";
 
-export default function useText(initialState: string = ""){
-    const [value, setValue] = useState(initialState);
+import { ValidateOptionsProps } from "@shared/types/system/validate.interfaces";
+
+export default function useText(initialState: string = "", options: ValidateOptionsProps = {}){
+    const { value, setValue, error, isValid } = useValidate({initialState, options});
     
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setValue(event.target.value);
@@ -10,5 +12,5 @@ export default function useText(initialState: string = ""){
     
     const reset = () => setValue(initialState);
 
-    return { value, handleChange, reset }
+    return { value, error, isValid, handleChange, reset }
 }
