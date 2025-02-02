@@ -1,16 +1,30 @@
-import { _ButtonIF } from "@app/shared/types/system.interfaces";
+"use client";
+import { FC, useMemo } from "react";
+import clsx from "clsx";
 
-const Button: React.FC<_ButtonIF> = ({children, variant="undefined", label, className, ...props}) => {
+import useButtonSound from "@shared/lib/hooks/system/additionals/useButtonSound";
 
-    const variantClassName: Record<typeof variant, string> = {
-        "primary": "",
-        "secondary": "",
-        "ghost": "btn-ghost",
-        "undefined": "",
-    }
+import { ButtonProps } from "@shared/types/system/button.interfaces";
 
-    const btnContent = children ?? label;
-    return <button className={`${className} ${variant != "undefined" ? variantClassName[variant] : ""}`} {...props}>{btnContent}</button>
+import variants from "@shared/consts/variants";
+
+const Button: FC<ButtonProps> = ({className, sound, children, label, font="mono", variant="primary", active = false, onClick, ...props}) => {
+
+    const soundSrc = sound ? variants.sounds[sound as keyof typeof variants.sounds] ?? variants.sounds.scifi : undefined;
+    const { handleButtonClick } = useButtonSound(soundSrc, onClick);
+
+    const btnClassName = useMemo(() => clsx(
+        variants.fonts[font as keyof typeof variants.fonts],
+        variants.clxs[variant as keyof typeof variants.clxs],
+        active && "active",
+        className
+    ), [font, variant, active, className]);
+
+    return(
+        <button onClick={handleButtonClick} className={btnClassName} {...props}>
+            {children ?? label}
+        </button>
+    )
 }
 
 export default Button;
