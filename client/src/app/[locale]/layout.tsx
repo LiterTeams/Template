@@ -5,14 +5,13 @@ import { notFound } from "next/navigation";
 import { routing } from "@app/i18n/routing";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-import Providers from "@app/process/providers/Providers";
+import Providers from "@process/providers/Providers";
 
-import { LocaleEnumT } from "@shared/types/enum.types";
-
+import { LocalePropsT } from "@app/shared/types/system/types";
 
 type Props = {
   children: React.ReactNode;
-  params: {locale: LocaleEnumT};
+  params: {locale: LocalePropsT};
 }
 
 export const metadata: Metadata = {
@@ -29,7 +28,7 @@ export default async function RootLayout({children, params}: Readonly<Props>) {
 
   return (
     <html lang={locale} className="h-full">
-      <body className={"bg-black h-inherit text-white"}>
+      <body className={"bg-neutral-950 h-inherit text-white font-mono"}>
         <NextIntlClientProvider messages={messages}>
           <Providers>
             {children}
