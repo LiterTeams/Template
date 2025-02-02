@@ -3,19 +3,19 @@
         "home": "家"
     },
     "Home": {
-        "hero": "Шаблон клиентского и серверного приложения c готовыми решениями",
+        "hero": "既成のソリューションを備えたクライアントおよびサーバー アプリケーション テンプレート",
         
-        "changelog": "changelog",
-        "changelog-text": "Be the first to know about new changes and improvements in the finished NexstJS template.",
+        "changelog": "変更履歴",
+        "changelog-text": "NextJS テンプレートの新しい変更点や改善点について最初に知ってください。",
 
-        "templates": "templates",
-        "templates-text": "Additional templates to the current template.",
+        "templates": "テンプレート",
+        "templates-text": "現在のテンプレートへの追加テンプレート。",
 
-        "libraries": "libraries",
-        "libraries-text": "Custom template libraries",
+        "libraries": "図書館",
+        "libraries-text": "ユーザーライブラリ",
 
-        "system-custom": "В проекте присутствую папки system и custom.",
-        "system": "Папки System лучше не трогать, так как там всё необходимо для работы клиентского и серверного приложения",
-        "custom": "Папки Custom уже можете использовать как хотите. Она предназначена для ваших решений."
+        "system-custom": "プロジェクトには、システム フォルダーとカスタム フォルダーが含まれています。",
+        "system": "すべてがクライアントおよびサーバー アプリケーションの動作に必要なものなので、システム フォルダーには触れない方がよいでしょう。",
+        "custom": "カスタム フォルダーは、新しいコンポーネント、フックなど用です。"
     }
 }

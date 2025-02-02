@@ -3,19 +3,19 @@
         "home": "Maison"
     },
     "Home": {
-        "hero": "Шаблон клиентского и серверного приложения c готовыми решениями",
+        "hero": "Modèle d'application client et serveur avec des solutions prêtes à l'emploi",
         
-        "changelog": "changelog",
-        "changelog-text": "Be the first to know about new changes and improvements in the finished NexstJS template.",
+        "changelog": "journal des modifications",
+        "changelog-text": "Soyez le premier informé des nouveaux changements et améliorations du modèle NextJS.",
 
-        "templates": "templates",
-        "templates-text": "Additional templates to the current template.",
+        "templates": "modèles",
+        "templates-text": "Modèles supplémentaires au modèle actuel.",
 
-        "libraries": "libraries",
-        "libraries-text": "Custom template libraries",
+        "libraries": "bibliothèques",
+        "libraries-text": "Nos bibliothèques personnalisées pour votre projet",
 
-        "system-custom": "В проекте присутствую папки system и custom.",
-        "system": "Папки System лучше не трогать, так как там всё необходимо для работы клиентского и серверного приложения",
-        "custom": "Папки Custom уже можете использовать как хотите. Она предназначена для ваших решений."
+        "system-custom": "Le projet contient les dossiers système et personnalisés.",
+        "system": "Il est préférable de ne pas toucher aux dossiers Système, car tout est nécessaire au fonctionnement des applications client et serveur.",
+        "custom": "Der benutzerdefinierte Ordner ist für neue Komponenten, Hooks usw."
     }
 }

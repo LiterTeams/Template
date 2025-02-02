@@ -3,19 +3,19 @@
         "home": "Heim"
     },
     "Home": {
-        "hero": "Шаблон клиентского и серверного приложения c готовыми решениями",
+        "hero": "Client- und Server-Anwendungsvorlage mit vorgefertigten Lösungen",
         
-        "changelog": "changelog",
-        "changelog-text": "Be the first to know about new changes and improvements in the finished NexstJS template.",
+        "changelog": "Änderungsprotokoll",
+        "changelog-text": "Erfahren Sie als Erster von neuen Änderungen und Verbesserungen in der NextJS-Vorlage.",
 
-        "templates": "templates",
-        "templates-text": "Additional templates to the current template.",
+        "templates": "Vorlagen",
+        "templates-text": "Zusätzliche Vorlagen zur aktuellen Vorlage.",
 
-        "libraries": "libraries",
-        "libraries-text": "Custom template libraries",
+        "libraries": "Bibliotheken",
+        "libraries-text": "Unsere maßgeschneiderten Bibliotheken für Ihr Projekt",
 
-        "system-custom": "В проекте присутствую папки system и custom.",
-        "system": "Папки System лучше не трогать, так как там всё необходимо для работы клиентского и серверного приложения",
+        "system-custom": "Das Projekt enthält die System- und benutzerdefinierten Ordner.",
+        "system": "Es ist besser, die Systemordner nicht anrühren, da alles für den Betrieb der Client- und Serveranwendungen erforderlich ist.",
         "custom": "Папки Custom уже можете использовать как хотите. Она предназначена для ваших решений."
     }
 }
