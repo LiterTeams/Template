@@ -1,15 +1,14 @@
 "use client";
-import { useState } from "react";
-
+import { useCallback, useMemo, useState } from "react";
 import errors from "@shared/config/errors";
 
-export default function useError(initialState: string | null = null, lang: "ru" | "eng" | "deu" = "ru"){
-    const [error, setError] = useState(initialState);
-    const errorsLang = errors[lang];
+export default function useError(initialState: string | null = null, lang: "ru" | "eng" | "deu" = "ru") {
+    const [error, setError] = useState<string | null>(initialState);
+    const errorsLang = useMemo(() => errors[lang], [lang]);
 
-    const updateError = (newError: string) => setError(newError);
+    const updateError = useCallback((newError: string) => setError(newError), []);
 
-    const setErrorType = (errorType: string, value?: string | number) => {
+    const setErrorType = useCallback((errorType: string, value?: string | number) => {
         const replacements: Record<string, string> = {
             "required": errorsLang.required,
             "str-min": errorsLang.min.str.replace(":value", String(value)),
@@ -20,11 +19,11 @@ export default function useError(initialState: string | null = null, lang: "ru" 
             "file-max": errorsLang.max.file.replace(":value", String(value)),
             "date-min": errorsLang.min.date.replace(":value", String(value)),
             "date-max": errorsLang.max.date.replace(":value", String(value)),
-            "email": errorsLang.format.email.replace(":value", String(value)),
-            "tel": errorsLang.format.tel.replace(":value", String(value)),
-            "url": errorsLang.format.url.replace(":value", String(value)),
-            "IP": errorsLang.format.IP.replace(":value", String(value)),
-            "uuid": errorsLang.format.uuid.replace(":value", String(value)),
+            "email": errorsLang.format.email,
+            "tel": errorsLang.format.tel,
+            "url": errorsLang.format.url,
+            "IP": errorsLang.format.IP,
+            "uuid": errorsLang.format.uuid,
             "special-chars": errorsLang.special.chars,
             "type-int": errorsLang.type.int,
             "type-str": errorsLang.type.str,
@@ -39,9 +38,9 @@ export default function useError(initialState: string | null = null, lang: "ru" 
         };
 
         setError(replacements[errorType] || null);
-    };
+    }, [errorsLang, lang]);
 
-    const clearError = () => setError(null);
+    const clearError = useCallback(() => setError(null), []);
 
-    return { error, setError: setErrorType, updateError, clearError }
+    return { error, setError: setErrorType, updateError, clearError };
 }
