@@ -1,4 +1,18 @@
 {
+    "NotFoundPage":{
+        "title": "ページが見つかりません",
+        "missing": "問題が発生しました",
+        "back": "家に帰る"
+    },
+    "Languages": {
+        "Russian": "ロシア",
+        "Polish": "研磨",
+        "Ukrainian": "ウクライナ語",
+        "English": "英語",
+        "German": "ドイツ語",
+        "French": "フランス語",
+        "Japanese": "日本語"
+    },
     "Navigation": {
         "home": "家"
     },
@@ -6,7 +20,7 @@
         "hero": "既成のソリューションを備えたクライアントおよびサーバー アプリケーション テンプレート",
         
         "changelog": "変更履歴",
-        "changelog-text": "NextJS テンプレートの新しい変更点や改善点について最初に知ってください。",
+        "changelog-text": "NexstJS テンプレートの新しい変更点や改善点について最初に知ってください。",
 
         "templates": "テンプレート",
         "templates-text": "現在のテンプレートへの追加テンプレート。",

@@ -1,21 +1,35 @@
 {
+    "NotFoundPage":{
+        "title": "Strona nie znaleziona",
+        "missing": "Nie mogę w to uwierzyć.",
+        "back": "Powrót do strony głównej"
+    },
+    "Languages": {
+        "Russian": "Rosyjski",
+        "Polish": "Polski",
+        "Ukrainian": "Ukraiński",
+        "English": "Angielski",
+        "German": "Niemiecki",
+        "French": "Francuski",
+        "Japanese": "Japoński"
+    },
     "Navigation": {
         "home": "Dom"
     },
     "Home": {
-        "hero": "Шаблон клиентского и серверного приложения c готовыми решениями",
+        "hero": "Szablon aplikacji klienckiej i serwerowej z gotowymi rozwiązaniami",
         
-        "changelog": "changelog",
-        "changelog-text": "Be the first to know about new changes and improvements in the finished NexstJS template.",
+        "changelog": "dziennik zmian",
+        "changelog-text": "Bądź pierwszy, który dowie się o nowych zmianach i ulepszeniach w szablonie NexstJS",
 
-        "templates": "templates",
-        "templates-text": "Additional templates to the current template.",
+        "templates": "szablony",
+        "templates-text": "Dodatkowe szablony do bieżącego szablonu",
 
-        "libraries": "libraries",
-        "libraries-text": "Custom template libraries",
+        "libraries": "biblioteki",
+        "libraries-text": "biblioteki niestandardowe dla Twojego projektu",
 
-        "system-custom": "В проекте присутствую папки system и custom.",
-        "system": "Папки System лучше не трогать, так как там всё необходимо для работы клиентского и серверного приложения",
-        "custom": "Папки Custom уже можете использовать как хотите. Она предназначена для ваших решений."
+        "system-custom": "Projekt zawiera foldery systemowe i niestandardowe.",
+        "system": "Lepiej nie ruszać folderów System, gdyż są one niezbędne do działania aplikacji klienckich i serwerowych.",
+        "custom": "Folder niestandardowy przeznaczony jest na nowe komponenty, haki itp."
     }
 }

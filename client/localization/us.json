@@ -1,4 +1,18 @@
 {
+    "NotFoundPage":{
+        "title": "Page Not Found",
+        "missing": "Something's missing",
+        "back": "Back to Home" 
+    },
+    "Languages": {
+        "Russian": "Russian",
+        "Polish": "Polish",
+        "Ukrainian": "Ukrainian",
+        "English": "English",
+        "German": "German",
+        "French": "French",
+        "Japanese": "Japanese"
+    },
     "Navigation": {
         "home": "Home"
     },

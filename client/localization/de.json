@@ -1,4 +1,18 @@
 {
+    "NotFoundPage":{
+        "title": "Seite nicht gefunden",
+        "missing": "Da ist etwas schiefgelaufen",
+        "back": "zurück zur Startseite"
+    },
+    "Languages": {
+        "Russian": "Russisch",
+        "Polish": "Polieren",
+        "Ukrainian": "Ukrainisch",
+        "English": "Englisch",
+        "German": "Deutsch",
+        "French": "Französisch",
+        "Japanese": "japanisch"
+    },
     "Navigation": {
         "home": "Heim"
     },
@@ -6,16 +20,16 @@
         "hero": "Client- und Server-Anwendungsvorlage mit vorgefertigten Lösungen",
         
         "changelog": "Änderungsprotokoll",
-        "changelog-text": "Erfahren Sie als Erster von neuen Änderungen und Verbesserungen in der NextJS-Vorlage.",
+        "changelog-text": "Erfahren Sie als Erster von neuen Änderungen und Verbesserungen in der NexstJS-Vorlage",
 
         "templates": "Vorlagen",
-        "templates-text": "Zusätzliche Vorlagen zur aktuellen Vorlage.",
+        "templates-text": "Zusätzliche Vorlagen zur aktuellen Vorlage",
 
         "libraries": "Bibliotheken",
         "libraries-text": "Unsere maßgeschneiderten Bibliotheken für Ihr Projekt",
 
         "system-custom": "Das Projekt enthält die System- und benutzerdefinierten Ordner.",
         "system": "Es ist besser, die Systemordner nicht anrühren, da alles für den Betrieb der Client- und Serveranwendungen erforderlich ist.",
-        "custom": "Папки Custom уже можете использовать как хотите. Она предназначена для ваших решений."
+        "custom": "Der benutzerdefinierte Ordner ist für neue Komponenten, Hooks usw."
     }
 }

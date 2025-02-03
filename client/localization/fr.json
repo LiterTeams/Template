@@ -1,4 +1,18 @@
 {
+    "NotFoundPage":{
+        "title": "Page non trouvée",
+        "missing": "Quelque chose s'est mal passé",
+        "back": "Retour à la page d'accueil"
+    },
+    "Languages": {
+        "Russian": "Russe",
+        "Polish": "Polonais",
+        "Ukrainian": "Ukrainien",
+        "English": "Anglais",
+        "German": "Allemand",
+        "French": "Français",
+        "Japanese": "Japonais"
+    },
     "Navigation": {
         "home": "Maison"
     },
@@ -6,10 +20,10 @@
         "hero": "Modèle d'application client et serveur avec des solutions prêtes à l'emploi",
         
         "changelog": "journal des modifications",
-        "changelog-text": "Soyez le premier informé des nouveaux changements et améliorations du modèle NextJS.",
+        "changelog-text": "Soyez le premier informé des nouveaux changements et améliorations du modèle NexstJS",
 
         "templates": "modèles",
-        "templates-text": "Modèles supplémentaires au modèle actuel.",
+        "templates-text": "Modèles supplémentaires au modèle actuel",
 
         "libraries": "bibliothèques",
         "libraries-text": "Nos bibliothèques personnalisées pour votre projet",
