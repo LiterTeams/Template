@@ -1,7 +1,8 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { notFound } from "next/navigation";
 import { routing } from "@app/i18n/routing";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -20,7 +21,6 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({children, params}: Readonly<Props>) {
-  
   const { locale } = await params;
   const messages = await getMessages();
 
@@ -30,9 +30,11 @@ export default async function RootLayout({children, params}: Readonly<Props>) {
     <html lang={locale} className="h-full">
       <body className={"bg-neutral-950 h-inherit text-white font-mono"}>
         <NextIntlClientProvider messages={messages}>
+        <Suspense fallback={<div>Loading...</div>}>
           <Providers>
             {children}
           </Providers>
+        </Suspense>
         </NextIntlClientProvider>
         <SpeedInsights />
       </body>
