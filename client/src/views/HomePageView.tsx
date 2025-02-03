@@ -1,9 +1,23 @@
 "use client";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { Link, usePathname } from "@app/i18n/routing";
 
 export default function HomePageView(){
-    const localization = useTranslations("Home");
+    
+    const locale = useLocale();
 
+    const localization = useTranslations("Home");
+    const localization2 = useTranslations("Languages");
+
+    const languages = [
+        {value: "ru", label: localization2("Russian")},
+        {value: "pl", label: localization2("Polish")},
+        {value: "ua", label: localization2("Ukrainian")},
+        {value: "us", label: localization2("English")},
+        {value: "de", label: localization2("German")},
+        {value: "fr", label: localization2("French")},
+        {value: "jp", label: localization2("Japanese")},
+    ];
     const data = [
         {
             label: localization("changelog"),
@@ -28,6 +42,18 @@ export default function HomePageView(){
             <h1 className="block text-4xl font-bold uppercase text-white tracking-widest">Nexst<span className="text-lg">.js</span></h1>
             <h2 className="block font-bold uppercase text-base">Beta 1.1.2</h2>
             <p className="text-white">{localization("hero")}</p>
+            <div className="flex gap-2 items-center mt-4">
+                {languages.map((language,index) =>
+                    <Link
+                        key={index}
+                        href="/"
+                        locale={language.value}
+                        className={`bg-white/5 border border-white border-opacity-15 rounded px-4 py-1 cursor-pointer duration-300 hover:bg-white/15 hover:border-opacity-25 ${locale == language.value && "bg-white/15 border-opacity-25"}`}
+                        >
+                            {language.label}
+                    </Link>
+                )}
+            </div>
             <div className="grid grid-cols-2 w-full gap-3 mt-8">
                 {data.map((dataItem, index) =>
                     <a key={index} href={dataItem.href} className={`border duration-300 border-white border-opacity-15 p-3 rounded-lg hover:bg-white/5 hover:border-opacity-25 ${index == data.length - 1 && "col-span-2"}`}>
