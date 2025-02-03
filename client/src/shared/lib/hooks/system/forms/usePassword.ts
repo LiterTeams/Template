@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import useValidate from "../validate/useValidate";
 
 import { ValidateOptionsProps } from "@shared/types/system/validate.interfaces";
@@ -10,13 +11,16 @@ const defaultOptions: ValidateOptionsProps = {
 
 export default function usePassword(initialState: string = "", options: ValidateOptionsProps = {}){
     const mergedOptions = { ...defaultOptions, ...options };
+    const [isVisible, setIsVisible] = useState(false);
     const { value, setValue, error, isValid } = useValidate({initialState, options: mergedOptions});
     
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setValue(event.target.value);
     };
+
+    const toggleVisible = () => setIsVisible(prev => !prev);
     
     const reset = () => setValue(initialState);
 
-    return { value, error, isValid, handleChange, reset }
+    return { value, error, isValid, isVisible, handleChange, toggleVisible, reset }
 }
