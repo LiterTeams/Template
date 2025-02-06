@@ -1,8 +1,24 @@
-enum Role {
+enum UserRole {
   root
   admin
   moderator
   user
+}
+
+enum AuthMethod {
+  credentials
+  google
+  discord
+  vkontakte
+  telegram
+  apple
+  uak
+}
+
+enum TokenType {
+  verification
+  two_factor
+  password_reset
 }
 
 enum VisibleStatus {
@@ -16,4 +32,12 @@ enum RatingSystem {
   teen
   mature
   adult
+}
+
+enum FileType {
+  note
+  image
+  video
+  archive
+  audio
 }

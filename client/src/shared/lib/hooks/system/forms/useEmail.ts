@@ -8,9 +8,9 @@ const defaultOptions: ValidateOptionsProps = {
     required: true,
 }
 
-export default function useEmail(initialState: string = "", options: ValidateOptionsProps = {}){
+export const useEmail = (initialState: string = "", options: ValidateOptionsProps = {}) => {
     const mergedOptions = { ...defaultOptions, ...options };
-    const { value, setValue, error, isValid } = useValidate({initialState, options: mergedOptions});
+    const { value, error, isValid, validate, setValue } = useValidate({initialState, options: mergedOptions});
     
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setValue(event.target.value);
@@ -18,5 +18,5 @@ export default function useEmail(initialState: string = "", options: ValidateOpt
     
     const reset = () => setValue(initialState);
 
-    return { value, error, isValid, handleChange, reset }
+    return { value, error, isValid, handleChange, validate, reset }
 }

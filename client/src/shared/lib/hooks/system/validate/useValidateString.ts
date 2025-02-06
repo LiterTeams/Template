@@ -51,13 +51,13 @@ export default function useValidateString(options?: ValidateOptionsProps) {
             { condition: options.onlyLetters && !hasLetters(inputValue), errorKey: ERROR_MESSAGES.typeStr },
             { condition: options.compareWith && inputValue !== options.compareWith, errorKey: ERROR_MESSAGES.comparePassword },
             { condition: options.format && options.format in formatPatterns && !formatPatterns[options.format]?.test(inputValue), errorKey: options.format ? ERROR_MESSAGES[options.format as keyof typeof ERROR_MESSAGES] : undefined },
-            { condition: inputValue.length < lengthMin, errorKey: ERROR_MESSAGES.strMin },
-            { condition: inputValue.length > lengthMax, errorKey: ERROR_MESSAGES.strMax },
+            { condition: inputValue.length < lengthMin, errorKey: ERROR_MESSAGES.strMin, value: lengthMin },
+            { condition: inputValue.length > lengthMax, errorKey: ERROR_MESSAGES.strMax, value: lengthMax },
         ];
 
-        for (const { condition, errorKey } of validations) {
+        for (const { condition, errorKey, value } of validations) {
             if (condition) {
-                if (errorKey) setError(errorKey);
+                if (errorKey) setError(errorKey, value);
                 return false;
             }
         }

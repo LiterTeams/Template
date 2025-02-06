@@ -37,10 +37,11 @@ interface ValidateOptionsProps {
     onlyLetters?: boolean;
     allowWhitespace?: boolean; // -
 
-    compareWith?: string; // -
+    compareWith?: string;
     caseSensitive?: boolean; // -
     allowNull?: boolean; // -
     allowFileDuplicate?: boolean; // -
+    autoValidate?: boolean;
 }
 
 export type { ValidateOptionsProps };

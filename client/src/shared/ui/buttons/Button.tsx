@@ -8,7 +8,7 @@ import { ButtonProps } from "@shared/types/system/button.interfaces";
 
 import variants from "@shared/consts/variants";
 
-const Button: FC<ButtonProps> = ({className, sound, children, label, font="mono", variant="primary", active = false, onClick, ...props}) => {
+export const Button: FC<ButtonProps> = ({className, sound, children, label, font="mono", variant="primary", active = false, onClick, ...props}) => {
 
     const soundSrc = sound ? variants.sounds[sound as keyof typeof variants.sounds] ?? variants.sounds.scifi : undefined;
     const { handleButtonClick } = useButtonSound(soundSrc, onClick);
@@ -26,5 +26,3 @@ const Button: FC<ButtonProps> = ({className, sound, children, label, font="mono"
         </button>
     )
 }
-
-export default Button;

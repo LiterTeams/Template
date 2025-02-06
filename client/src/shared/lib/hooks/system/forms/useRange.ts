@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-export default function useRange(initialState: number = 0, initialMinState: number = 0, initialMaxState: number = 100){
+export const useRange = (initialState: number = 0, initialMinState: number = 0, initialMaxState: number = 100) => {
     const [value, setValue] = useState(initialState);
     const [min, setMin] = useState<number>(initialMinState);
     const [max, setMax] = useState<number>(initialMaxState);

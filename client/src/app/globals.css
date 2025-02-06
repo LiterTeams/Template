@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    .container {@apply max-w-FHD mx-auto h-full; padding-inline: clamp(64px,5vw,12px);}
+}
+
+@layer components {
+    .wrapper {@apply py-6 gap-12 grid min-h-full grid-rows-[minmax(64px,auto)_1fr_minmax(256px,auto)];}
+    .flex-center{@apply items-center justify-center;}
+    .h-inherit {height: inherit;}
+
+    .btn-ghost {@apply flex items-center justify-center rounded-md size-9 p-1 bg-black/25 border border-white border-opacity-15 duration-300 hover:bg-white/25;}
+
+    .toast-wrapper {
+        @apply relative duration-300 flex items-center min-h-14 w-80 gap-3 bg-white/5 backdrop-blur-md p-2 rounded border border-neutral-900;
+        & .icon{@apply flex flex-center rounded-full border border-neutral-900 size-10 p-3 bg-white/5 backdrop-blur-md;}
+        & .content{@apply flex flex-col gap-1;}
+        & h2{@apply text-sm text-neutral-300 font-semibold;}
+        & p{@apply text-xs text-neutral-500;}
+
+        &.success .icon {@apply bg-green-700;}
+        &.error .icon {@apply bg-red-700;}
+        &.warning .icon {@apply bg-yellow-500;}
+        &.pending .icon {@apply bg-sky-500;}
+        &.info .icon {@apply bg-white/5;}
+    }
+
+    .noise {
+        @apply absolute left-0 top-0 right-0 bottom-0 opacity-10;
+        background: rgba(0, 0, 0, 0.05);
+        background-image: radial-gradient(circle, rgba(0, 0, 0, 0.1) 10%, transparent 20%);
+        mix-blend-mode: overlay;
+    }
+
+    .blackout {
+        @apply absolute left-0 top-0 size-full;
+        background: radial-gradient(circle, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
+    }
+}
+
+@layer utilities {
+    .text-balance {text-wrap: balance;}
+    @keyframes fade-in {
+        from { opacity: 0; scale: 0.95; transform: translateX(-364px);}
+        to { opacity: 1; scale: 1; transform: translateX(0);}
+      }
+    
+      .animate-fade-in-up {
+        animation: fade-in 0.5s ease-out;
+      }
+    
+      .animate-fade-in-up-reverse {
+        animation: fade-in 0.5s ease-out reverse forwards;
+      }
+}

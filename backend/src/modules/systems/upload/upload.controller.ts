@@ -1,29 +1,44 @@
-import { Controller, Get, Post, HttpCode, UseGuards, UseInterceptors, UploadedFiles, Param, BadRequestException } from "@nestjs/common";
-import { FilesInterceptor } from "@nestjs/platform-express";
+import { 
+    Controller, 
+    Post, 
+    HttpCode, 
+    UseInterceptors, 
+    UploadedFiles,
+    UseFilters,
+    HttpStatus,
+    UseGuards,
+    Delete,
+    Body,
+} from "@nestjs/common";
+import { CustomFilesInterceptor } from "./custon.files.interceptor";
 import { UploadService } from "./upload.service";
-import Storage from "./storage";
-import Filter from "./filter";
 import { FileValidationPipe } from "src/pipes/FileValidationPipe";
 
-import { Roles } from "src/decorators/roles.decorator";
-import { Role } from "src/interfaces/enum.interfaces";
-import { RolesGuard } from "src/guards/roles.guard";
-import { Auth } from "src/decorators/auth.decorator";
-import { FileIF } from "src/interfaces/system/file.interfaces";
+import { FileProps } from "src/types/system/file.interfaces";
+import { MulterExceptionFilter } from "./multer.exception.filter";
 
+import AuthGuard from "src/guards/auth.guard";
+import RolesGuard from "src/guards/roles.guard";
+
+import Roles from "src/decorators/roles.decorator";
+
+// @UseGuards(AuthGuard, RolesGuard)
+@UseFilters(MulterExceptionFilter)
 @Controller("upload")
 export class UploadController {
-
     constructor(private readonly uploadService: UploadService) {}
 
-    @HttpCode(200)
     @Post()
-    // @Auth()
-    // @Roles(Role.admin,Role.moderator,Role.user)
-    // @UseGuards(RolesGuard)
-    @UseInterceptors(FilesInterceptor("file",32,{storage:Storage, fileFilter:Filter}))
-    async uploadFile(@UploadedFiles(FileValidationPipe) files: FileIF[]) {
+    // @Roles("moderator")
+    @HttpCode(HttpStatus.OK)
+    @UseInterceptors(CustomFilesInterceptor)
+    async uploadFile(@UploadedFiles(FileValidationPipe) files: FileProps[]) {
         return this.uploadService.saveFiles(files);
     }
 
+    @Delete()
+    @HttpCode(HttpStatus.OK)
+    async removeFiles(@Body() files: string[] | string) {
+        return this.uploadService.removeFiles(files);
+    }
 }

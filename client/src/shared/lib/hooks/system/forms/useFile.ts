@@ -4,7 +4,7 @@ import checkFileFormat from "@shared/lib/helpers/system/checkFileFormat";
 import { ExtensionsPropsT } from "@shared/types/system/types";
 import fileDestructurization from "@shared/lib/helpers/system/fileDestructurization";
 
-export default function useFile(allowedMimetypes: ExtensionsPropsT | ExtensionsPropsT[] = [], multiple: boolean = false) {
+export const useFile = (allowedMimetypes: ExtensionsPropsT | ExtensionsPropsT[] = [], multiple: boolean = false) => {
     const [files, setFiles] = useState<File[]>([]);
     const fileInputRef = useRef<HTMLInputElement | null>(null);  // Реф для input
 

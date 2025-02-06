@@ -9,7 +9,7 @@ import variants from "@shared/consts/variants";
 
 import { LinkButtonProps } from "@shared/types/system/button.interfaces";
 
-const LinkButton: FC<LinkButtonProps> = ({children, route, sound="echo", prefix, active=false, href="#", variant="primary", font="impact", label, className, ...props}) => {
+export const LinkButton: FC<LinkButtonProps> = ({children, route, sound="echo", prefix, active=false, href="#", variant="primary", font="impact", label, className, ...props}) => {
 
     const soundSrc = variants.sounds[sound as keyof typeof variants.sounds] ?? variants.sounds.scifi;
     const { handleAnchorClick } = useButtonSound(soundSrc);
@@ -31,5 +31,3 @@ const LinkButton: FC<LinkButtonProps> = ({children, route, sound="echo", prefix,
         </Link>
     )
 }
-
-export default LinkButton;

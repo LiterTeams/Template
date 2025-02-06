@@ -1,13 +1,13 @@
 import { 
-    ImageExtensionEnumT, VideoExtensionEnumT, AudioExtensionEnumT,
-    UnitEnumT, UnitEndWithPrefix 
-} from "src/types/enum.types";
+    ImageExtensionT, VideoExtensionT, AudioExtensionT,
+    UnitT, UnitEndWithPrefixT 
+} from "src/types/system/enum.interfaces";
 
 interface FileConfigIF {
     useAutomaticConversion: boolean;
-    imageAutoConversion: ImageExtensionEnumT;
-    videoAutoConversion: VideoExtensionEnumT;
-    audioAutoConversion: AudioExtensionEnumT;
+    imageAutoConversion: ImageExtensionT;
+    videoAutoConversion: VideoExtensionT;
+    audioAutoConversion: AudioExtensionT;
     
     allowedExtensions: {
         image: string[];
@@ -17,11 +17,11 @@ interface FileConfigIF {
         archive: string[];
     }
     allowedSizes: {
-        image: {min: UnitEndWithPrefix, max: UnitEndWithPrefix},
-        video: {min: UnitEndWithPrefix, max: UnitEndWithPrefix},
-        note: {min: UnitEndWithPrefix, max: UnitEndWithPrefix},
-        audio: {min: UnitEndWithPrefix, max: UnitEndWithPrefix},
-        archive: {min: UnitEndWithPrefix, max: UnitEndWithPrefix},
+        image: {min: UnitEndWithPrefixT, max: UnitEndWithPrefixT},
+        video: {min: UnitEndWithPrefixT, max: UnitEndWithPrefixT},
+        note: {min: UnitEndWithPrefixT, max: UnitEndWithPrefixT},
+        audio: {min: UnitEndWithPrefixT, max: UnitEndWithPrefixT},
+        archive: {min: UnitEndWithPrefixT, max: UnitEndWithPrefixT},
     },
     uploads: {
         root: string;
@@ -31,7 +31,7 @@ interface FileConfigIF {
         audio: string;
         archive: string;
     },
-    units: Record<UnitEnumT, number>,
+    units: Record<UnitT, number>,
 }
 
 const fileConfig: FileConfigIF = {

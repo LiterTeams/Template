@@ -1,19 +1,26 @@
 "use client";
-import MobxProvider from "./MobxProvider";
-import TanStackProvider from "./TanStackProvider";
+import { TanStackProvider } from "./TanStackProvider";
+import { ThemeProvider } from "./ThemeProvider";
+import { MobxProvider } from "./MobxProvider";
 import { SoundProvider } from "./SoundProvider";
-import PageProvider from "./PageProvider";
+// import { ToastifyProvider } from "./ToastifyProvider";
+import { CustomToastProvider } from "./CustomToastProvider";
+import { PageProvider } from "./PageProvider";
 
-export default function Providers({children}:{children:React.ReactNode}){
+export const Providers = ({children}:{children:React.ReactNode}) => {
     return(
-        <MobxProvider>
-            <TanStackProvider>
-                <PageProvider>
+        <TanStackProvider>
+            <ThemeProvider attribute="class" defaultTheme="dark">
+                <MobxProvider>
                     <SoundProvider>
-                        {children}
+                        <CustomToastProvider>
+                            <PageProvider>
+                                {children}
+                            </PageProvider>
+                        </CustomToastProvider>
                     </SoundProvider>
-                </PageProvider>
-            </TanStackProvider>
-        </MobxProvider>
+                </MobxProvider>
+            </ThemeProvider>
+        </TanStackProvider>
     )
 }

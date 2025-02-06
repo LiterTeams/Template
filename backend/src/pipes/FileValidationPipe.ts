@@ -1,16 +1,16 @@
-import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from "@nestjs/common";
+import { PipeTransform, Injectable, BadRequestException } from "@nestjs/common";
 import errors from "src/const/errors";
 
 import checkFileSizeValid from "src/lib/checkFileSizeValid";
 import checkFileExtensionValid from "src/lib/checkFileExtensionValid";
 import fileDestructurization from "src/lib/fileDestructurization";
 
-import { FileIF } from "src/interfaces/system/file.interfaces";
+import { FileProps } from "src/types/system/file.interfaces";
 
 @Injectable()
 export class FileValidationPipe implements PipeTransform {
-    transform(files: FileIF[]) {
-        const validFiles: FileIF[] = [];
+    transform(files: FileProps[]) {
+        const validFiles: FileProps[] = [];
 
         if (!files) throw new BadRequestException('Файл не загружен');
 

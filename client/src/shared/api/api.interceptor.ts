@@ -1,43 +1,58 @@
 import axios from "axios";
-import { errorCatch, getContentType } from "./api.helper";
-// import { clearStorage, getTokens } from "@process/services/oauth/oauth.helper";
-// import oauthService from "@process/services/oauth/service.oauth";
+import { getContentType } from "./api.helper";
+import { tokenService } from "@features/auth/services";
 
-const axiosInstance  = axios.create({
+const axiosInstance = axios.create({
     baseURL: "http://localhost:5000/api",
     timeout: 2000,
     headers: getContentType(),
+    withCredentials: true,
 });
 
-axiosInstance.interceptors.request.use(async config => {
-
-    // const tokens = getTokens();
-
-    // if (config.headers && tokens.accessToken){
-    //     config.headers.Authorization = `Bearer ${tokens.accessToken}`;
-    // }
-
+axiosInstance.interceptors.request.use((config) => {
+    const accessToken = tokenService.getAccessToken();
+    if (config.headers && accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+    }
     return config;
 });
 
-axiosInstance.interceptors.response.use(config => config, async error => {
-    const originalRequest = error.config;
-    if (
-        error.response.status === 401 ||
-        errorCatch(error) === "jwt expired" ||
-        errorCatch(error) === "jwt must be provided" &&
-        error.config && !error.config._isRetry
-    ) {
-        originalRequest._isRetry = true;
-        // try{
-        //     await oauthService.getNewTokens();
-        //     return axiosInstance.request(originalRequest);
-        // } catch(error){
-        //     if (errorCatch(error) === "jwt expired")
-        //         clearStorage();
-        // }
+axiosInstance.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+        const originalRequest = error.config;
+
+        if (error.response?.status === 401) {
+            originalRequest._retry = originalRequest._retry ?? 0;
+
+            if (!originalRequest._retry) originalRequest._retry = 0;
+            
+            if (originalRequest._retry >= 3) {
+                console.warn("🚨 Достигнуто максимальное количество попыток обновления токена");
+                return Promise.reject(error);
+            }
+
+            originalRequest._retry++;
+
+            try {
+                console.log(`🔄 Попытка обновления токена #${originalRequest._retry}`);
+
+                const newAccessToken = await tokenService.refreshAccessToken();
+                if (!newAccessToken) throw new Error("Failed to refresh access token");
+
+                if (originalRequest.headers) {
+                    originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+                }
+
+                return axiosInstance(originalRequest);
+            } catch (refreshError) {
+                console.error("🚨 Ошибка обновления токена:", refreshError);
+                return Promise.reject(refreshError);
+            }
+        }
+
+        return Promise.reject(error);
     }
-    return error;
-})
+);
 
 export default axiosInstance;

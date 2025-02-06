@@ -9,10 +9,10 @@ const defaultOptions: ValidateOptionsProps = {
     lengthBetween: [6, 64],
 }
 
-export default function usePassword(initialState: string = "", options: ValidateOptionsProps = {}){
+export const usePassword = (initialState: string = "", options: ValidateOptionsProps = {}) => {
     const mergedOptions = { ...defaultOptions, ...options };
     const [isVisible, setIsVisible] = useState(false);
-    const { value, setValue, error, isValid } = useValidate({initialState, options: mergedOptions});
+    const { value, error, isValid, validate, setValue } = useValidate({initialState, options: mergedOptions});
     
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setValue(event.target.value);
@@ -22,5 +22,5 @@ export default function usePassword(initialState: string = "", options: Validate
     
     const reset = () => setValue(initialState);
 
-    return { value, error, isValid, isVisible, handleChange, toggleVisible, reset }
+    return { value, error, isValid, isVisible, handleChange, toggleVisible, validate, reset }
 }

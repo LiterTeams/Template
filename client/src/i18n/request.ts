@@ -4,15 +4,15 @@ import { routing } from './routing';
 import { LocalePropsT } from "@app/shared/types/system/types";
 
 export default getRequestConfig(async ({ requestLocale }) => {
-  // Получаем локаль из requestLocale (если есть), иначе ищем в cookies или accept-language
+  // Получаем локаль из requestLocale, иначе ищем в cookies или accept-language
   let locale = await requestLocale;
 
   const headersList = await headers();
   const defaultLocale = headersList.get("accept-language");
 
-  // Берём локаль из cookies или fallback на defaultLocale (или 'en' если нет)
+  // Берём локаль из cookies или fallback на defaultLocale (или 'us -> United States / USA / Englist' если нет)
   const cookiesList = await cookies();
-  locale = cookiesList.get("NEXT_LOCALE")?.value || defaultLocale || "en";
+  locale = cookiesList.get("NEXT_LOCALE")?.value || defaultLocale || "us";
 
   // Если локаль некорректная, используем локаль по умолчанию
   if (!locale || !routing.locales.includes(locale as LocalePropsT)) {

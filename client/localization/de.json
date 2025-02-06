@@ -13,6 +13,15 @@
         "French": "Französisch",
         "Japanese": "japanisch"
     },
+    "Words": {
+        "Email": "E-Mail",
+        "Password": "Passwort",
+        "Password-Repeat": "Passwort wiederholen",
+        "Login": "Login",
+        "Registration": "Registrieren",
+        "Nickname": "Spitzname",
+        "Back": "zurück zur Startseite"
+    },
     "Navigation": {
         "home": "Heim"
     },

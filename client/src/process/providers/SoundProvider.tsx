@@ -1,13 +1,14 @@
 "use client";
+import { ReactNode } from "react";
 import { createContext, useRef } from "react";
 
 interface SoundContextProps {
     playSound: (src: string) => void;
-  }
+}
 
 export const SoundContext = createContext<SoundContextProps | null>(null);
 
-export const SoundProvider = ({ children }: { children: React.ReactNode }) => {
+export const SoundProvider = ({ children }: { readonly children: ReactNode }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const volume = .1;
 

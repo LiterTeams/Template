@@ -1,64 +1,28 @@
-model Note {
+model FileStorage {
   id            Int      @id @default(autoincrement())
+  folder_id     Int?
   url           String
   name          String
   original_name String
   size          Int
   extension     String
-  created_at    DateTime @default(now()) @map("created_at")
-  updated_at    DateTime @default(now()) @updatedAt @map("updated_at")
+  type          FileType
+  created_at    DateTime @default(now())
+  updated_at    DateTime @default(now()) @updatedAt
 
-  @@map("notes")
+  folder FolderStorage? @relation(fields: [folder_id], references: [id])
+
+  @@map("files")
 }
 
-model Image {
-  id            Int      @id @default(autoincrement())
-  url           String
-  name          String
-  original_name String
-  size          Int
-  extension     String
-  created_at    DateTime @default(now()) @map("created_at")
-  updated_at    DateTime @default(now()) @updatedAt @map("updated_at")
+model FolderStorage {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(64)
+  description String?  @db.VarChar(128)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now()) @updatedAt
 
-  @@map("images")
-}
+  files FileStorage[]
 
-model Video {
-  id            Int      @id @default(autoincrement())
-  url           String
-  name          String
-  original_name String
-  size          Int
-  extension     String
-  created_at    DateTime @default(now()) @map("created_at")
-  updated_at    DateTime @default(now()) @updatedAt @map("updated_at")
-
-  @@map("videos")
-}
-
-model Audio {
-  id            Int      @id @default(autoincrement())
-  url           String
-  name          String
-  original_name String
-  size          Int
-  extension     String
-  created_at    DateTime @default(now()) @map("created_at")
-  updated_at    DateTime @default(now()) @updatedAt @map("updated_at")
-
-  @@map("audio")
-}
-
-model Archive {
-  id            Int      @id @default(autoincrement())
-  url           String
-  name          String
-  original_name String
-  size          Int
-  extension     String
-  created_at    DateTime @default(now()) @map("created_at")
-  updated_at    DateTime @default(now()) @updatedAt @map("updated_at")
-
-  @@map("archives")
+  @@map("folders")
 }

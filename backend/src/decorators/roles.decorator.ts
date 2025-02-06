@@ -1,8 +1,5 @@
-// import { Reflector } from "@nestjs/core";
+import { SetMetadata } from "@nestjs/common";
+import { UserRole } from "@prisma/client";
 
-// export const Roles = Reflector.createDecorator<string[]>();
-
-import {SetMetadata} from '@nestjs/common';
-import { Role } from 'src/interfaces/enum.interfaces';
-
-export const Roles = (...roles: Role[]) => SetMetadata('roles', roles);
+const Roles = (...roles: UserRole[]) => SetMetadata("roles", roles);
+export default Roles;

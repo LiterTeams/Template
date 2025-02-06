@@ -3,8 +3,8 @@ import useValidate from "../validate/useValidate";
 
 import { ValidateOptionsProps } from "@shared/types/system/validate.interfaces";
 
-export default function useText(initialState: string = "", options: ValidateOptionsProps = {}){
-    const { value, setValue, error, isValid } = useValidate({initialState, options});
+export const useText = (initialState: string = "", options: ValidateOptionsProps = {}) => {
+    const { value, error, isValid, validate, setValue } = useValidate({initialState, options});
     
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setValue(event.target.value);
@@ -12,5 +12,5 @@ export default function useText(initialState: string = "", options: ValidateOpti
     
     const reset = () => setValue(initialState);
 
-    return { value, error, isValid, handleChange, reset }
+    return { value, error, isValid, handleChange, validate, reset }
 }

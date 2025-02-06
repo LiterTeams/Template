@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const getContentType = () => ({
     "Content-Type": "application/json",
-    "Role": "admin",
 });
 
 export const errorCatch = (error: any): string => {

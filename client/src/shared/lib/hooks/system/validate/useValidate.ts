@@ -8,22 +8,27 @@ import { ValidateOptionsProps } from "@shared/types/system/validate.interfaces";
 
 interface useValidateProps<T> {
     initialState: T;
-    options?: ValidateOptionsProps;
+    options: ValidateOptionsProps;
 }
 
-export default function useValidate<T>({ initialState, options }: useValidateProps<T>) {
+const defaultOptions: ValidateOptionsProps = {
+    autoValidate: true,
+}
+
+export default function useValidate<T>({ initialState, options = {} }: useValidateProps<T>) {
+    const mergedOptions = { ...defaultOptions, ...options };
     const [value, setValue] = useState<T>(initialState);
     const { error, setError, updateError, clearError } = useError(null);
 
-    const { validate: validateString, error: validateStringError } = useValidateString(options);
-    const { validate: validateNumber, error: validateNumberError } = useValidateNumber(options);
-    const { validate: validateFile, error: validateFileError } = useValidateFile(options);
-    const { validate: validateDate, error: validateDateError } = useValidateDate(options);
+    const { validate: validateString, error: validateStringError } = useValidateString(mergedOptions);
+    const { validate: validateNumber, error: validateNumberError } = useValidateNumber(mergedOptions);
+    const { validate: validateFile, error: validateFileError } = useValidateFile(mergedOptions);
+    const { validate: validateDate, error: validateDateError } = useValidateDate(mergedOptions);
 
     const validate = (inputValue: T) => {
-        if (!options) return true;
+        if (!mergedOptions) return true;
 
-        if (options.required && !inputValue) {
+        if (mergedOptions.required && !inputValue) {
             setError("required");
             return;
         }
@@ -50,8 +55,8 @@ export default function useValidate<T>({ initialState, options }: useValidatePro
 
     const handleChange = (newValue: T) => {
         setValue(newValue);
-        validate(newValue);
+        if (mergedOptions.autoValidate) validate(newValue);
     };
 
-    return { value, setValue: handleChange, error, isValid: !error };
+    return { value, validate, setValue: handleChange, error, isValid: !error };
 }

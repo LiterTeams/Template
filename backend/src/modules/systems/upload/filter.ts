@@ -6,17 +6,15 @@ import fileDestructurization from "src/lib/fileDestructurization";
 
 import errors from "src/const/errors";
 
-import { FileIF } from "src/interfaces/system/file.interfaces";
+import { FileProps } from "src/types/system/file.interfaces";
 
-const Filter = (req: any, file: FileIF, callback: any) => {
+const Filter = (req: any, file: FileProps, callback: any) => {
     const { extension, size } = fileDestructurization(file);
+
+    if (!checkFileExtensionValid(extension)) return callback(new HttpException(errors.extension.message, errors.extension.status), false);
+    if (!checkFileSizeValid(size, extension)) return callback(new HttpException(errors.size.message, errors.size.status), false);
     
-    const extensionValid = checkFileExtensionValid(extension);
-    const sizeValid = checkFileSizeValid(size, extension);
-    
-    if (!extensionValid) return callback(new HttpException(errors.extension.message, errors.extension.status), false);
-    if (!sizeValid) return callback(new HttpException(errors.size.message, errors.size.status), false);
-    return callback(null, true);
-}
+    callback(null, true);
+};
 
 export default Filter;

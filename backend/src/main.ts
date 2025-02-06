@@ -1,26 +1,37 @@
 import { NestFactory, HttpAdapterHost } from "@nestjs/core";
-import { AppModule } from "./modules/systems/app/app.module";
+import { AppModule } from "./app.module";
 import { ConfigService } from "@nestjs/config";
 import { PrismaExceptionFilter } from "./modules/systems/prisma/prisma.exception.filter";
 import * as express from "express";
 import { join } from "path";
-// import { TimeoutInterceptor } from "./interceptors/timeout.interceptor";
+import * as cookieParser from "cookie-parser";
+import { SessionService } from "./modules/systems/session/session.service";
+import { HttpExceptionFilter } from "./filters/http-exception.filter";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-    // app.useGlobalInterceptors(new TimeoutInterceptor());
     const configService = app.get(ConfigService);
     const { httpAdapter } = app.get(HttpAdapterHost);
-    app.use("/uploads", express.static(join(__dirname, "..", "..", "uploads")));
-    app.setGlobalPrefix(configService.get("prefix"));
-    app.useGlobalFilters(new PrismaExceptionFilter(httpAdapter));
+    const sessionService = app.get(SessionService);
+    const prefix = configService.get<string>("prefix", "api");
+    const allowedOrigins = configService.get<string>("allowedOrigins", "http://localhost:3000,http://localhost:4000").split(",");
+    
+    app.use(sessionService.getSessionMiddleware());
+    app.use(cookieParser(configService.getOrThrow<string>("cookiesSecret")))
+    app.use("/uploads", express.static(join(process.cwd(), "uploads")));
+    app.setGlobalPrefix(prefix);
+    if (httpAdapter) app.useGlobalFilters(new PrismaExceptionFilter(httpAdapter));
+    app.useGlobalFilters(new HttpExceptionFilter());
+    
     app.enableCors({
-        origin:["http://localhost:3000","http://localhost:4000"],
+        origin: allowedOrigins,
         allowedHeaders: ["Content-Type", "Origin", "X-Requested-With", "Accept", "Authorization", "Role"],
-        exposedHeaders: ["Authorization"],
+        exposedHeaders: ["Authorization","Set-Cookies"],
         methods: ["GET", "POST", "PATCH", "DELETE"],
         credentials: true,
     });
-    await app.listen(configService.get("port"));
+    
+    const port = configService.get<number>("port", 5000);
+    await app.listen(port);
 }
 bootstrap();

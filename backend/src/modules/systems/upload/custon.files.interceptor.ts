@@ -2,6 +2,7 @@ import { Injectable, NestInterceptor, ExecutionContext, CallHandler, Inject } fr
 import { FilesInterceptor } from "@nestjs/platform-express";
 import { UploadService } from "./upload.service";
 import { Observable } from "rxjs";
+import Storage from "./storage";
 
 @Injectable()
 export class CustomFilesInterceptor implements NestInterceptor {
@@ -9,10 +10,9 @@ export class CustomFilesInterceptor implements NestInterceptor {
 
     async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
         const interceptor = new (FilesInterceptor("file", 32, { 
-            storage: this.uploadService.storage,
+            storage: Storage,
         }))();
 
-        await interceptor.intercept(context, next);
-        return next.handle();
+        return interceptor.intercept(context, next);
     }
 }

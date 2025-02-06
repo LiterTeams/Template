@@ -1,6 +1,6 @@
-import { FileIF } from "src/interfaces/system/file.interfaces";
+import { FileProps } from "src/types/system/file.interfaces";
 
-const fileDestructurization = (file: FileIF) => {
+const fileDestructurization = (file: FileProps) => {
     const path = file.path ? file.path.replaceAll(/\\/g, "/") : "";
     const size = file.size;
     const extension = file.originalname.split(".").pop();

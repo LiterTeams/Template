@@ -1,5 +1,5 @@
 "use client";
 
-export default function useTimestamp(){
+export const useTimestamp = () => {
     return {}
 }
