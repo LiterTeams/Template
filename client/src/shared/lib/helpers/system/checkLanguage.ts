@@ -1,7 +1,7 @@
 import { langEnPattern, langRuPattern, trimPattern } from "@shared/config/patterns";
 import { _LangErrorProps } from "@shared/types/system/error.interfaces";
 
-const checkLanguage = (state: string | number, lang: keyof _LangErrorProps) => {
+export const checkLanguage = (state: string | number, lang: keyof _LangErrorProps) => {
     if (typeof state === "number") return true;
     
     state = state.replace(trimPattern, "");
@@ -10,5 +10,3 @@ const checkLanguage = (state: string | number, lang: keyof _LangErrorProps) => {
     
     return langEnPattern.test(state);
 }
-
-export default checkLanguage;

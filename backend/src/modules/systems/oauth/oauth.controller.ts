@@ -15,9 +15,9 @@ export class OauthController {
     async signIn(
         @Headers("origin") origin: string,
         @Body() dto: SignInProps,
-        @Req() req: Request,
+        @Res() res: Response,
     ) {
-        return this.oauthService.signIn(dto, origin, req);
+        return this.oauthService.signIn(dto, origin, res);
     }
 
     @Post("uak")
@@ -25,18 +25,18 @@ export class OauthController {
     async signInUAK(
         @Headers("origin") origin: string,
         @Body() UAK: string,
-        @Req() req: Request,
+        @Res() res: Response,
     ) {
-        return this.oauthService.signInUAK(UAK, origin, req);
+        return this.oauthService.signInUAK(UAK, origin, res);
     }
 
     @Post("sign-up")
     @HttpCode(HttpStatus.OK)
     async signUp(
         @Body() dto: Prisma.UserCreateInput,
-        @Req() req: Request,
+        @Res() res: Response,
     ) {
-        return this.oauthService.signUp(dto, req);
+        return this.oauthService.signUp(dto, res);
     }
 
     @Post("refresh-access-token")

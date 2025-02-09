@@ -1,2 +1,2 @@
-import SignUpPageView from "@views/Oauth/SignUpPageView";
+import { SignUpPageView } from "@app/views";
 export default function SignUpPage() { return <SignUpPageView /> }

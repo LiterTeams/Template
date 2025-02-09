@@ -1,9 +1,7 @@
+"use client";
 import { useState } from "react";
-import useError from "../general/useError";
-import useValidateString from "./useValidateString";
-import useValidateNumber from "./useValidateNumber";
-import useValidateFile from "./useValidateFile";
-import useValidateDate from "./useValidateDate";
+import { useError } from "../general";
+import { useValidateString, useValidateNumber, useValidateFile, useValidateDate } from "./index";
 import { ValidateOptionsProps } from "@shared/types/system/validate.interfaces";
 
 interface useValidateProps<T> {
@@ -15,7 +13,7 @@ const defaultOptions: ValidateOptionsProps = {
     autoValidate: true,
 }
 
-export default function useValidate<T>({ initialState, options = {} }: useValidateProps<T>) {
+export const useValidate = <T>({ initialState, options = {} }: useValidateProps<T>) => {
     const mergedOptions = { ...defaultOptions, ...options };
     const [value, setValue] = useState<T>(initialState);
     const { error, setError, updateError, clearError } = useError(null);

@@ -1,19 +1,24 @@
 import axios from "axios";
 import { getContentType } from "./api.helper";
-import { tokenService } from "@features/auth/services";
+import { tokenService, oauthService } from "@features/auth/services";
+import { timeToMs } from "../lib/helpers/system";
+
+interface FailedRequest {
+    resolve: (value?: unknown) => void;
+    reject: (reason?: unknown) => void;
+}
+
+let isRefreshing = false;
+let failedQueue: FailedRequest[] = [];
 
 const axiosInstance = axios.create({
     baseURL: "http://localhost:5000/api",
-    timeout: 2000,
+    timeout: timeToMs("10s"),
     headers: getContentType(),
     withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use((config) => {
-    const accessToken = tokenService.getAccessToken();
-    if (config.headers && accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-    }
     return config;
 });
 
@@ -22,32 +27,47 @@ axiosInstance.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
 
-        if (error.response?.status === 401) {
-            originalRequest._retry = originalRequest._retry ?? 0;
+        // Обработка ошибки сети
+        if (error.message === "Network Error") {
+            return Promise.reject(error);
+        }
 
-            if (!originalRequest._retry) originalRequest._retry = 0;
-            
-            if (originalRequest._retry >= 3) {
-                console.warn("🚨 Достигнуто максимальное количество попыток обновления токена");
-                return Promise.reject(error);
+        // Обработка ошибки 401 (невалидный токен)
+        if (error.response?.status === 401 && originalRequest.url === "/oauth/refresh-access-token") {
+            console.error("❌ Ошибка обновления токена: Refresh Token недействителен");
+            oauthService.logout(); // Разлогинить пользователя
+            return Promise.reject(error);
+        }
+
+        // Обработка ошибки 401 (попытка обновить токен)
+        if (error.response?.status === 401 && !originalRequest._retry) {
+            if (isRefreshing) {
+                // Если уже идет процесс обновления токена, ставим запрос в очередь
+                return new Promise((resolve, reject) => {
+                    failedQueue.push({ resolve, reject });
+                });
             }
 
-            originalRequest._retry++;
+            isRefreshing = true;
+            originalRequest._retry = true;
 
             try {
-                console.log(`🔄 Попытка обновления токена #${originalRequest._retry}`);
+                console.log("🔄 Обновляем токен...");
+                await tokenService.refreshAccessToken(); // Обновляем токен
 
-                const newAccessToken = await tokenService.refreshAccessToken();
-                if (!newAccessToken) throw new Error("Failed to refresh access token");
+                // Обрабатываем все запросы в очереди, после того как токен обновлен
+                failedQueue.forEach((queuedRequest) => queuedRequest.resolve());
+                failedQueue = []; // Очищаем очередь
 
-                if (originalRequest.headers) {
-                    originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                }
+                isRefreshing = false;
+                return axiosInstance(originalRequest); // Повторяем запрос
+            } catch (error) {
+                console.error("🚨 Ошибка обновления токена:", error);
+                failedQueue.forEach((queuedRequest) => queuedRequest.reject(error));
+                failedQueue = []; // Очищаем очередь
 
-                return axiosInstance(originalRequest);
-            } catch (refreshError) {
-                console.error("🚨 Ошибка обновления токена:", refreshError);
-                return Promise.reject(refreshError);
+                isRefreshing = false;
+                return Promise.reject(error);
             }
         }
 

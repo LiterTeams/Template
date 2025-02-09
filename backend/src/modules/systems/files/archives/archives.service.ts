@@ -1,12 +1,30 @@
-import { Injectable, NotAcceptableException, NotFoundException } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { DatabaseService } from "../../database/database.service";
-import fileConfig from 'src/const/files';
+import { UploadService } from "../../upload/upload.service";
+import returnFileStorageObj from "../return.file.storage.obj";
 
 @Injectable()
 export class ArchivesService {
   constructor(
     private readonly DBService: DatabaseService,
-    private readonly CfgService: ConfigService,
+    private readonly uploadService: UploadService,
   ){}
+
+  async findAll(){
+      const data = await this.DBService.fileStorage.findMany({where: {type: "archive"}, select:returnFileStorageObj});
+      const meta = {};
+      return { data, meta }
+  }
+
+  async findById(id: number){
+      const file = await this.DBService.fileStorage.findFirstOrThrow({where:{id, type: "archive"}, select:returnFileStorageObj});
+      if (!file) throw new NotFoundException("File Not Found!");
+      return file;
+  }
+
+  async remove(id: number){
+      const file = await this.findById(id);
+      await this.uploadService.removeFiles(`${file.name}.${file.extension}`);
+      return await this.DBService.fileStorage.delete({where:{id}})
+  }
 }

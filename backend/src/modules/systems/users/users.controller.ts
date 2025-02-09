@@ -13,5 +13,4 @@ export class UsersController {
   async findProfile(@CurrentUser("id") user_id: string) {
     return this.usersService.findById(+user_id);
   }
-
 }

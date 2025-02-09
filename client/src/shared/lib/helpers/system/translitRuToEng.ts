@@ -1,4 +1,4 @@
-const translitRuToEng = (text:string): string => {
+export const translitRuToEng = (text:string): string => {
     let answer = "";
     const converter: { [key: string]: string } = {
 		'а': 'a',    'б': 'b',    'в': 'v',    'г': 'g',    'д': 'd',
@@ -27,4 +27,3 @@ const translitRuToEng = (text:string): string => {
  
 	return answer.toLowerCase().replaceAll(" ", "-");
 }
-export default translitRuToEng;

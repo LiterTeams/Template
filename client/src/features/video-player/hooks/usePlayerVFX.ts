@@ -8,7 +8,7 @@ interface Props {
     VFX?: boolean;
 }
 
-export default function usePlayerVFX({movieMode = false, aberrationEffect = false, blackoutEffect = false, VFX = false}:Props){
+export const usePlayerVFX = ({movieMode = false, aberrationEffect = false, blackoutEffect = false, VFX = false}:Props) => {
 
     const [useMovieMode, setUseMovieMode] = useState(movieMode);
     const [useAberrationEffect, setUseAberrationEffect] = useState(aberrationEffect);

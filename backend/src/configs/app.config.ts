@@ -20,6 +20,7 @@ export default () => ({
     sessionHTTPOnly: process.env.SESSION_HTTP_ONLY,
     sessionSecure: process.env.SESSION_SECURE,
     sessionFolder: process.env.SESSION_FOLDER,
+    sessionSameSite: process.env.SESSION_SAME_SITE,
 
     // Redis
     redisHost: process.env.REDIS_HOST,

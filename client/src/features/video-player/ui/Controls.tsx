@@ -7,55 +7,39 @@ import Timeline from "./Timeline";
 import PreferenseControls from "./PreferenseControls";
 
 import { ControlsProps } from "../types/player";
-import Button from "@app/shared/ui/buttons/Button";
+import { Button } from "@shared/ui/buttons";
 
-const Controls: FC<ControlsProps> = ({...props}) => {
+export const Controls: FC<ControlsProps> = ({...props}) => {
 
     console.log(props);
 
     const {
-        isPlaying,
+        isPlaying, handleTogglePlay,
         isEnded,
-        isFullscreen,
-        isPictureToPicture,
-        isMuted,
-        volume,
+        isFullscreen, handleToggleFullscreen,
+        isPictureToPicture, handelTogglePictureToPicture,
+        isMuted, toggleMute,
+        volume, handelVolumeChange,
         showControls,
         progress,
         currentTime,
         totalTime,
         iconSize,
-        isLooped,
+        isLooped, toggleLoop,
         voices,
         sources,
         subtitles,
-        currentQuality,
-        currentSubtitle,
-        currentVoice,
+        currentQuality, handleChangeQuality,
+        currentSubtitle, handleToggleSubtitles,
+        currentVoice, handleVoiceChange,
         autoRemoveMissingControllers,
-        useAberrationEffect,
-        useBlackoutEffect,
-        useMovieMode,
-        useVFX,
-    } = props;
-
-    const {
-        handleTogglePlay,
+        useAberrationEffect, toggleAberrationEffect,
+        useBlackoutEffect, toggleBlackoutEffect,
+        useMovieMode, toggleMovieMode,
+        useVFX, toggleVFX,
         handelRepeat,
         handleForwardSkip,
         handleBackwardSkip,
-        handelVolumeChange,
-        handleToggleFullscreen,
-        handelTogglePictureToPicture,
-        handleToggleSubtitles,
-        handleChangeQuality,
-        handleVoiceChange,
-        toggleMute,
-        toggleLoop,
-        toggleVFX,
-        toggleMovieMode,
-        toggleAberrationEffect,
-        toggleBlackoutEffect,
         onSeek,
     } = props;
 
@@ -130,5 +114,3 @@ const Controls: FC<ControlsProps> = ({...props}) => {
         </>
     )
 }
-
-export default Controls;

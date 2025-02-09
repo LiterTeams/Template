@@ -49,10 +49,10 @@ const fileConfig: FileConfigIF = {
     },
     allowedSizes: {
         image: {min: "1 KB", max: "64 MB"},
-        video: {min: "1 MB", max: "8 GB"},
-        note: {min: "1 KB", max: "1 GB"},
+        video: {min: "1 KB", max: "8 GB"},
+        note: {min: "1 B", max: "16 MB"},
         audio: {min: "1 KB", max: "32 MB"},
-        archive: {min: "1 MB", max: "3 GB"},
+        archive: {min: "1 KB", max: "3 GB"},
     },
     uploads: {
         root: "uploads",

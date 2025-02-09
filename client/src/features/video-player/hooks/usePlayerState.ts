@@ -9,7 +9,7 @@ interface Props {
     subtitles?:SubtitleProps[],
 }
 
-export default function usePlayerState({loop = false, sources = [], voices = [], subtitles = []}:Props){
+export const usePlayerState = ({loop = false, sources = [], voices = [], subtitles = []}:Props) => {
 
     const [isFirstStart, setIsFirstStart] = useState<boolean>(true);
     const [isError, setIsError] = useState<boolean>(false);

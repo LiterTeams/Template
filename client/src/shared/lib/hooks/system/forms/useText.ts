@@ -1,5 +1,5 @@
 "use client";
-import useValidate from "../validate/useValidate";
+import { useValidate } from "../validate";
 
 import { ValidateOptionsProps } from "@shared/types/system/validate.interfaces";
 

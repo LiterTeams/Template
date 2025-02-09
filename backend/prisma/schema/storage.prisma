@@ -1,5 +1,5 @@
 model FileStorage {
-  id            Int      @id @default(autoincrement())
+  id            Int            @id @default(autoincrement())
   folder_id     Int?
   url           String
   name          String
@@ -7,22 +7,20 @@ model FileStorage {
   size          Int
   extension     String
   type          FileType
-  created_at    DateTime @default(now())
-  updated_at    DateTime @default(now()) @updatedAt
-
-  folder FolderStorage? @relation(fields: [folder_id], references: [id])
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @default(now()) @updatedAt
+  folder        FolderStorage? @relation(fields: [folder_id], references: [id])
 
   @@map("files")
 }
 
 model FolderStorage {
-  id          Int      @id @default(autoincrement())
-  title       String   @db.VarChar(64)
-  description String?  @db.VarChar(128)
-  created_at  DateTime @default(now())
-  updated_at  DateTime @default(now()) @updatedAt
-
-  files FileStorage[]
+  id          Int           @id @default(autoincrement())
+  title       String        @db.VarChar(64)
+  description String?       @db.VarChar(128)
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @default(now()) @updatedAt
+  files       FileStorage[]
 
   @@map("folders")
 }

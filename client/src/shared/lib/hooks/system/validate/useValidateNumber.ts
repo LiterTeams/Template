@@ -1,8 +1,9 @@
+"use client";
 import { useCallback } from "react";
 import { ValidateOptionsProps } from "@shared/types/system/validate.interfaces";
-import useError from "../general/useError";
+import { useError } from "../general";
 
-export default function useValidateNumber(options?: ValidateOptionsProps) {
+export const useValidateNumber = (options?: ValidateOptionsProps) => {
     const { error, setError, clearError } = useError(null);
 
     const validate = useCallback((inputValue: number): boolean => {

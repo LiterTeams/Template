@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import dateTimeConvert from "@shared/lib/helpers/system/dateTimeConvert";
+import { timestampFormat } from "@shared/lib/helpers/system";
 
-export default function useFormattedDate(
+export const useFormattedDate = (
     date: Date,
     dateFormat: string ="Year.Month.Day|Hor:Min:Sec",
     showTimeSystem: boolean = true,
@@ -10,12 +10,12 @@ export default function useFormattedDate(
     intervalSeparator: string ="|",
     dateSeparator: string =".",
     timeSeparator: string =":"
-){
+) => {
 
     const [formattedDate, setFormattedDate] = useState<string | null>(null);
 
     useEffect(() => {
-        setFormattedDate(dateTimeConvert(date, dateFormat, showTimeSystem, timeSystem, intervalSeparator, dateSeparator, timeSeparator))
+        setFormattedDate(timestampFormat(date, dateFormat, showTimeSystem, timeSystem, intervalSeparator, dateSeparator, timeSeparator))
     },[date, dateFormat, dateSeparator, intervalSeparator, showTimeSystem, timeSeparator, timeSystem]);
 
     return { formattedDate }

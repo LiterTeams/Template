@@ -1,5 +1,1 @@
-const formatMessage = (text: string, maxLength: number) => {
-    return text.length <= maxLength ? text : text.slice(0, maxLength - 1) + "...";
-}
-
-export default formatMessage;
+export const formatMessage = (text: string, maxLength: number) => text.length <= maxLength ? text : text.slice(0, maxLength - 1) + "...";

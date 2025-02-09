@@ -4,7 +4,7 @@ import { Link } from "@app/i18n/routing";
 
 import { FaBurger } from "react-icons/fa6";
 
-import { headerLinksNavigation } from "@app/shared/config/variables";
+import { headerLinksNavigation } from "@shared/consts/navigations";
 
 export default function Header(){
 

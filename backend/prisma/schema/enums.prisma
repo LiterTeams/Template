@@ -7,18 +7,7 @@ enum UserRole {
 
 enum AuthMethod {
   credentials
-  google
-  discord
-  vkontakte
-  telegram
-  apple
   uak
-}
-
-enum TokenType {
-  verification
-  two_factor
-  password_reset
 }
 
 enum VisibleStatus {

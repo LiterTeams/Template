@@ -1,7 +1,7 @@
 "use client";
 import { RefObject, useCallback, useEffect, useRef } from "react";
 
-import parseTime from "@app/shared/lib/helpers/system/parseTime";
+import { parseTime } from "@app/shared/lib/helpers/system";
 
 interface Props {
     videoRef: RefObject<HTMLVideoElement>;
@@ -26,11 +26,11 @@ interface Props {
     setProgress: (value: number) => void;
 }
 
-export default function usePlayerPlayback({
+export const usePlayerPlayback = ({
     videoRef,timeSkip,isFirstStart,isPlaying,isError,isLooped,isMuted,currentTime,totalTime,
     setIsFirstStart,setIsPlaying,setIsLooped,setIsMuted,setIsEnded,setIsLoading,
     setCurrentTime,setTotalTime,setProgress,setShowControls,
-}:Props){
+}:Props) => {
 
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 

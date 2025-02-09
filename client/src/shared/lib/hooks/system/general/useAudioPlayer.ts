@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
 
-import durationConver from "@shared/lib/helpers/system/durationConver";
+import { durationConver } from "@shared/lib/helpers/system";
 
-export default function useAudioPlayer(autoPlay: boolean = false, mute: boolean = false, volume: number = 0.1){
+export const useAudioPlayer = (autoPlay: boolean = false, mute: boolean = false, volume: number = 0.1) => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isEnded, setIsEnded] = useState(false);

@@ -1,8 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
-import checkFileFormat from "@shared/lib/helpers/system/checkFileFormat";
+import { checkFileFormat, fileDestructurization } from "@shared/lib/helpers/system";
 import { ExtensionsPropsT } from "@shared/types/system/types";
-import fileDestructurization from "@shared/lib/helpers/system/fileDestructurization";
 
 export const useFile = (allowedMimetypes: ExtensionsPropsT | ExtensionsPropsT[] = [], multiple: boolean = false) => {
     const [files, setFiles] = useState<File[]>([]);

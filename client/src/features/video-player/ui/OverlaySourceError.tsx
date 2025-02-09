@@ -2,9 +2,9 @@ import { FC } from "react";
 
 import { TbError404Off } from "react-icons/tb";
 
-import Overlay from "./Overlay";
+import { Overlay } from "./";
 
-const OverlaySourceError: FC<{error?: string}> = ({error}) => {
+export const OverlaySourceError: FC<{error?: string}> = ({error}) => {
 
     const errorMessage = error || "Не удалось загрузить видео";
 
@@ -16,5 +16,3 @@ const OverlaySourceError: FC<{error?: string}> = ({error}) => {
         </Overlay>
     )
 }
-
-export default OverlaySourceError;

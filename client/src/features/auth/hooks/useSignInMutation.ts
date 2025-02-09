@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "@app/i18n/routing";
+import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@shared/lib/hooks/system/general/useToast";
 import { oauthService } from "../services";
@@ -14,7 +14,7 @@ export const useSignInMutation = () => {
         mutationFn: (data: SignInProps) => oauthService.signIn(data),
         onError: (error) => showToast("Ошибка авторизации",error.message,"error"),
         onSuccess: () => {
-            showToast("Авторизация","Вход в систему","info");
+            showToast("Авторизация","Вход в систему","success");
             router.push("/");
         }
     });

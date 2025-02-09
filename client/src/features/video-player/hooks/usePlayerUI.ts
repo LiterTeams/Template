@@ -1,12 +1,14 @@
 "use client";
 import { RefObject } from "react";
 
-export default function usePlayerUI(
-    playerRef: RefObject<HTMLDivElement> | null,
-    isPictureToPicture: boolean,
+interface Props {
+    playerRef: RefObject<HTMLDivElement> | null;
+    isPictureToPicture: boolean;
     setIsFullscreen: (value: boolean) => void,
     setIsPictureToPicture: (value: boolean) => void,
-){
+}
+
+export const usePlayerUI = ({playerRef,isPictureToPicture,setIsFullscreen,setIsPictureToPicture}:Props) => {
     const handleToggleFullscreen = async () => {
         if (!playerRef || !playerRef.current) return;
 

@@ -1,7 +1,7 @@
 "use client";
 import { FC, ReactNode } from "react";
 
-const Overlay: FC<{className?: string; children?: ReactNode;}> = ({className,children}) => {
+export const Overlay: FC<{className?: string; children?: ReactNode;}> = ({className,children}) => {
 
     const styles = className ? (className.includes("pointer-events") ? className : `pointer-events-auto ${className}`) : "pointer-events-auto";
 
@@ -11,5 +11,3 @@ const Overlay: FC<{className?: string; children?: ReactNode;}> = ({className,chi
         </div>
     )
 }
-
-export default Overlay;

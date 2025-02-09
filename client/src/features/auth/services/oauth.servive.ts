@@ -1,8 +1,6 @@
 import { AxiosError } from "axios";
 import axiosInstance from "@shared/api/api.interceptor";
 
-// import { tokenService } from "./";
-
 import { SignInProps, SignUpProps, OauthResponseProps } from "@shared/types/system/oauth.interfaces";
 
 class OauthService {

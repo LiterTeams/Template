@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { TimelineControlsProps } from "../types/player";
 
-const TimeLineChapters: FC<Pick<TimelineControlsProps, "totalTime">> = ({totalTime}) => {
+export const TimeLineChapters: FC<Pick<TimelineControlsProps, "totalTime">> = ({totalTime}) => {
 
     const chapters = [
         { id: 1,  label: "Превью", start: 0, end: 60,},
@@ -16,5 +16,3 @@ const TimeLineChapters: FC<Pick<TimelineControlsProps, "totalTime">> = ({totalTi
         </div>
     )
 }
-
-export default TimeLineChapters;

@@ -1,4 +1,4 @@
-const timeToSeconds = (time: string): number => {
+export const timeToSeconds = (time: string): number => {
     const units: Record<string, number> = {
         s: 1,
         m: 60,
@@ -15,5 +15,3 @@ const timeToSeconds = (time: string): number => {
 
     return value * units[unit];
 };
-
-export default timeToSeconds;

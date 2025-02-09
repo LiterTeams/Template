@@ -28,7 +28,7 @@ export const OauthFormWrapper: FC<OauthFormWrapperProps> = ({...props}) => {
         <div className={clsx("sm:max-w-96 w-full flex flex-col gap-4 p-3 sm:border border-white border-opacity-15 rounded-xl",className)}>
             <div className="flex gap-1 justify-between items-baseline">
                 <h1 className="block text-4xl font-bold uppercase text-white tracking-widest">Nexst<span className="text-lg">.js</span></h1>
-                <h2 className="block font-bold uppercase text-base text-neutral-500">Beta 1.1.4</h2>
+                <h2 className="block font-bold uppercase text-base text-neutral-500">Beta 1.1.6</h2>
             </div>
             {showSocials && <OauthFormSocials />}
             {children && 

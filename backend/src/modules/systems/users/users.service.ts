@@ -6,6 +6,11 @@ import { returnUserObj } from './return.obj';
 export class UsersService {
   constructor(private readonly DBService: DatabaseService) {}
 
+  async existenceRootUser(): Promise<boolean> {
+    const root = await this.DBService.user.findFirst({ where: { role: "root" } });
+    return Boolean(root);
+  }
+
   async findByUAK(UAK: string) {
     const user = await this.DBService.user.findFirst({where:{UAK}, select: {...returnUserObj, UAK: true}});
     if (!user) throw new NotFoundException("User Not Found!");

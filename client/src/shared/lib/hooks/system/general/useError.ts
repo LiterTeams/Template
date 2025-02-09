@@ -2,7 +2,7 @@
 import { useCallback, useMemo, useState } from "react";
 import errors from "@shared/config/errors";
 
-export default function useError(initialState: string | null = null, lang: "ru" | "eng" | "deu" = "ru") {
+export const useError = (initialState: string | null = null, lang: "ru" | "eng" | "deu" = "ru") => {
     const [error, setError] = useState<string | null>(initialState);
     const errorsLang = useMemo(() => errors[lang], [lang]);
 

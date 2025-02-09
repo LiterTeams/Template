@@ -4,9 +4,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { routing } from "@app/i18n/routing";
 
-import { Providers } from "@app/process/providers";
+import { Providers } from "@process/providers";
 
-import { LocalePropsT } from "@app/shared/types/system/types";
+import { LocalePropsT } from "@shared/types/system/types";
 
 type Props = {
   children: React.ReactNode;

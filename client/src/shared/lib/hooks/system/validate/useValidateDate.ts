@@ -1,8 +1,9 @@
+"use client";
 import { useCallback } from "react";
 import { ValidateOptionsProps } from "@shared/types/system/validate.interfaces";
-import useError from "../general/useError";
+import { useError } from "../general";
 
-export default function useValidateDate(options?: ValidateOptionsProps) {
+export const useValidateDate = (options?: ValidateOptionsProps) => {
     const { error, setError, clearError } = useError(null);
 
     const validate = useCallback((inputValue: Date): boolean => {

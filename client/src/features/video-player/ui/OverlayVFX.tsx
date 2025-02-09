@@ -1,10 +1,10 @@
 import { FC } from "react";
 
-import Overlay from "./Overlay";
+import { Overlay } from "./";
 
 import { OverlayVFXProps } from "../types/player";
 
-const OverlayVFX: FC<OverlayVFXProps> = ({...props}) => {
+export const OverlayVFX: FC<OverlayVFXProps> = ({...props}) => {
 
     const { useMovieMode, useAberrationEffect, useBlackoutEffect, useVFX } = props;
 
@@ -23,5 +23,3 @@ const OverlayVFX: FC<OverlayVFXProps> = ({...props}) => {
         </Overlay>
     )
 }
-
-export default OverlayVFX;

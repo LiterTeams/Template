@@ -1,8 +1,10 @@
-version: '4.37.1'
+version: "4.37.1"
+
+name: template
 
 services:
   db:
-    container_name: postgres
+    container_name: template-postgres
     image: postgres:16
     restart: always
     environment:
@@ -17,7 +19,7 @@ services:
       - backend
     
   redis:
-    container_name: redis
+    container_name: template-redis
     image: redis:5.0
     restart: always
     ports:

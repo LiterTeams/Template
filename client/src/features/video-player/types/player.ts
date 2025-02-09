@@ -1,4 +1,4 @@
-import { ReactNode, Ref, VideoHTMLAttributes, MouseEvent } from "react";
+import { ReactNode, Ref, VideoHTMLAttributes } from "react";
 
 interface BaseProps {
     id: number;
@@ -164,7 +164,6 @@ interface VideoProps
     isMuted: boolean;
     handleLoadedMetadata: () => void;
     handleTimeUpdate: () => void;
-    // doubleToggleFullscreen: (event: MouseEvent<HTMLVideoElement>) => void;
     handleEnded: () => void;
     handleError: (value: boolean) => void;
     preload?: "none" | "metadata" | "auto";

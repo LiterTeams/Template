@@ -1,6 +1,6 @@
 "use client";
 import { FC } from "react";
-import Input from "../inputs/Input";
+import { Input } from "../inputs";
 
 import { InputGroupProps } from "@shared/types/system/group.interfaces";
 import clsx from "clsx";
@@ -18,5 +18,4 @@ export const InputGroup: FC<InputGroupProps> = ({children, className = "", label
         </div>
         </>
     )
-
 }

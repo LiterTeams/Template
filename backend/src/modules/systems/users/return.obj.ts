@@ -6,7 +6,6 @@ export const returnUserObj:Prisma.UserSelect = {
     email: true,
     role: true,
     blocking: true,
-    accounts: true,
     password: true,
     created_at: true,
 }

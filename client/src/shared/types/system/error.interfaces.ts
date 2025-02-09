@@ -1,6 +1,6 @@
 export interface _BaseErrorProps {
     required: string;
-    empety: string;
+    empty: string;
     xss: string;
     mimes: string;
     regex: string;
@@ -61,17 +61,6 @@ export interface _MinMaxErrorProps {
     date: string;
 }
 
-export interface _StatusErrorProps {
-    200: string;
-    204: string;
-    400: string;
-    401: string;
-    404: string;
-    403: string;
-    410: string;
-    501: string;
-}
-
 export interface _ErrorProps extends _BaseErrorProps {
     lang: _LangErrorProps;
     format: _FormatErrorProps;
@@ -83,7 +72,7 @@ export interface _ErrorProps extends _BaseErrorProps {
     type: _TypeErrorProps;
     min: _MinMaxErrorProps;
     max: _MinMaxErrorProps;
-    status: _StatusErrorProps;
+    status: Record<number, string>;
 }
 
 interface ErrorsProps {

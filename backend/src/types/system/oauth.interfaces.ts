@@ -1,10 +1,7 @@
 import { TokenProps } from "./tokens.interfaces";
-import { Prisma } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 
-interface SignInProps {
-    email: string;
-    password: string;
-}
+interface SignInProps extends Pick<User, "email"|"password"> {}
 
 interface SignInResponseProps extends Omit<Prisma.UserCreateInput, "password">, TokenProps {
     id: number;

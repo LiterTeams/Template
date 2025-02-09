@@ -1,6 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from "@nestjs/common";
-import { UsersService } from "src/modules/systems/users/users.service";
 import { Request, Response } from "express";
+import { UsersService } from "src/modules/systems/users/users.service";
 import { TokenService } from "src/modules/systems/token/token.service";
 import { RedisService } from "src/modules/systems/redis/redis.service";
 
@@ -13,31 +13,29 @@ class AuthGuard implements CanActivate {
     ) {}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
-        const request = context.switchToHttp().getRequest<Request>();
-        const response = context.switchToHttp().getResponse<Response>();
-        const authHeader = request.headers["authorization"];
-        const accessToken = authHeader?.split(" ")[1];
+        const req = context.switchToHttp().getRequest<Request>();
+        const res = context.switchToHttp().getResponse<Response>();
+        const session = JSON.parse(req.cookies.session);
+        const userId = session["sessionId"];
+        const accessToken = req.cookies.accessToken;
 
-        if (!accessToken || !request.session.user_id){
+        if (!session){
             throw new UnauthorizedException("Доступ запрещён. Войдите чтобы получить доступ к ресурсу!");
         }
 
-        const user = await this.userService.findById(+request.session.user_id || -1);
+        const user = await this.userService.findById(+userId || -1);
 
         try {
             await this.tokenService.validateAccessToken(accessToken);
-            request.user = user;
+            req.user = user;
             return true;
         } catch (error) {
-            const refreshToken = await this.redisService.get(`refresh:${user.id}`); // Или достаём из заголовков
+            const refreshToken = await this.redisService.getRefreshToken(userId);
             if (!refreshToken) throw new UnauthorizedException("Refresh token is required");
-
             try {
-                const { accessToken: newAccessToken } = await this.tokenService.refreshAccessToken(user.id, request, response);
-
-                response.setHeader("Authorization", `Bearer ${newAccessToken}`);
-                request.user = await this.tokenService.validateAccessToken(newAccessToken);
-
+                const newAccessToken = await this.tokenService.refreshAccessToken(user.id);
+                await this.tokenService.saveAcceesToken(newAccessToken, res);
+                req.user = await this.tokenService.validateAccessToken(newAccessToken);
                 return true;
             } catch (refreshError) {
                 throw new UnauthorizedException("Invalid refresh token");

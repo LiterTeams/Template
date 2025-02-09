@@ -1,3 +1,1 @@
-const isUpperCase = (str: string): boolean => /^[A-ZА-ЯЁ]+$/.test(str);
-
-export default isUpperCase;
+export const isUpperCase = (str: string): boolean => /^[A-ZА-ЯЁ]+$/.test(str);

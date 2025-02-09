@@ -1,5 +1,28 @@
 # Updates Log Rus
 
+## NexstJS - beta ver 1.1.6 | 9.02.2025
+
+### Изменения (Backend)
+1. Упрощена структура проекта. (Многие модули из main.ts разбиты на отдельные составляющие: Session и Redis);
+2. TokenService и OauthService стал удобнее и читабельнее.
+
+### Исправления (Backend)
+1. Исправлена проблема работы session и accessToken.
+
+### Изменения (Client)
+1. Вместо react-toastify создана кастомная реализация тостов (Alpha);
+2. В TanStackProvider (queryClient Options) добавлены настройки по умолчанию.
+
+### Исправления (Client)
+1. axiosInstance теперь корректно запрашивает новый accessToken и обрабатывае внештатные ошибки.
+
+### Удалено (Backend)
+1. Ненужные методы из OauthService. (Вынесены в соответствующие модули).
+
+### Удалено (Client)
+1. Библиотека - react-toastify;
+2. SoundProvider (Думаю в 99% нахер не нужен будет).
+
 ## NexstJS - beta ver 1.1.4 | 7.02.2025
 
 ### Изменения (Backend)

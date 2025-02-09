@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { TimelineControlsProps } from "../types/player";
 
-const ProgressBar: FC<Pick<TimelineControlsProps, "progress">> = ({progress}) => {
+export const ProgressBar: FC<Pick<TimelineControlsProps, "progress">> = ({progress}) => {
     return(
         <div className="absolute left-0 top-0 w-full h-full pointer-events-none">
             <div style={{ width: `${progress}%` }} className="block h-full bg-orange-500 rounded-full pointer-events-none" />
@@ -10,5 +10,3 @@ const ProgressBar: FC<Pick<TimelineControlsProps, "progress">> = ({progress}) =>
         </div>
     )
 }
-
-export default ProgressBar;

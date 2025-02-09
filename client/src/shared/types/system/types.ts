@@ -12,20 +12,26 @@ type AudioExtensionPropsT = "ogg" | "mp3" | "acc";
 type ArchiveExtensionPropsT = "rar" | "zip" | "7zip";
 type ExtensionsPropsT = ImageExtensionPropsT | VideoExtensionPropsT | NoteExtensionPropsT | AudioExtensionPropsT | ArchiveExtensionPropsT;
 
-type SoundPropsT = "echo" | "scifi" | "mystery-alert" | "negative-alert" | "press" | "retro-alert" | "warning-alert";
-type ButtonVariantPropsT = "primary" | "secondary" | "additional";
-type ButtonFontPropsT = "mono" | "russo" | "impact" | "kelly" | "oswald";
+type FileStorageT = "image" | "video" | "audio" | "note" | "archive";
+
+type ButtonVariantPropsT = "primary" | "secondary" | "ghost" | "additional";
+type ButtonFontPropsT = "mono";
 type LinkRoutePropsT = "home";
 
 export type {
     UserRolePropsT,
+    FileStorageT,
     ButtonVariantPropsT,
     ButtonFontPropsT,
-    SoundPropsT,
     LinkRoutePropsT,
     LocalePropsT,
     ContentStatusPropsT,
     UnitEnumT,
     ProjectStatusPropsT,
-    ExtensionsPropsT, ImageExtensionPropsT, VideoExtensionPropsT, NoteExtensionPropsT, AudioExtensionPropsT, ArchiveExtensionPropsT
+    ExtensionsPropsT,
+    ImageExtensionPropsT,
+    VideoExtensionPropsT,
+    NoteExtensionPropsT,
+    AudioExtensionPropsT,
+    ArchiveExtensionPropsT,
 }

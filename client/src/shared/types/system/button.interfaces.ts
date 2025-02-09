@@ -1,8 +1,7 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import { ButtonFontPropsT, ButtonVariantPropsT, LinkRoutePropsT, SoundPropsT } from "./types";
+import { ButtonFontPropsT, ButtonVariantPropsT, LinkRoutePropsT } from "./types";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    sound?: SoundPropsT;
     variant?: ButtonVariantPropsT
     font?: ButtonFontPropsT;
     active?: boolean;
@@ -10,7 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     label?: string;
 }
 
-interface LinkButtonProps extends Pick<ButtonProps, "className"|"sound"|"active"|"style"|"font"|"variant"|"children"|"label"|"disabled"> {
+interface LinkButtonProps extends Pick<ButtonProps, "className"|"active"|"style"|"font"|"variant"|"children"|"label"|"disabled"> {
     href?: string;
     prefix?: LinkRoutePropsT;
     route?: LinkRoutePropsT;

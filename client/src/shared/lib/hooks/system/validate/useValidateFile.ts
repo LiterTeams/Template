@@ -1,12 +1,11 @@
+"use client";
 import { useCallback } from "react";
 import { ValidateOptionsProps } from "@shared/types/system/validate.interfaces";
-import useError from "../general/useError";
+import { useError } from "../general";
 
-import convertFileSize from "@shared/lib/helpers/system/convertFileSize";
-import checkFileFormat from "@shared/lib/helpers/system/checkFileFormat";
-import fileDestructurization from "@shared/lib/helpers/system/fileDestructurization";
+import { convertFileSize, checkFileFormat, fileDestructurization } from "@shared/lib/helpers/system";
 
-export default function useValidateFile(options?: ValidateOptionsProps) {
+export const useValidateFile = (options?: ValidateOptionsProps) => {
     const { error, setError, clearError } = useError(null);
 
     const validate = useCallback((inputValue: File): boolean => {

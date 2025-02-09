@@ -1,6 +1,6 @@
-import { SignUpForm } from "@app/features/auth/ui/SignUpForm";
+import { SignUpForm } from "@features/auth/ui";
 
-export default function SignUpPageView(){
+export const SignUpPageView = () => {
     return(
         <div className="size-full flex flex-center">
             <SignUpForm />

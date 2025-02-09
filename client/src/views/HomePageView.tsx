@@ -2,10 +2,7 @@
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@app/i18n/routing";
 
-import { useToast } from "@shared/lib/hooks/system/general/useToast";
-
-export default function HomePageView(){
-    const { showToast } = useToast();
+export const HomePageView = () => {
     const locale = useLocale();
 
     const localization = useTranslations("Home");
@@ -42,15 +39,8 @@ export default function HomePageView(){
         <div className="flex h-screen flex-col items-center justify-center mx-auto max-w-7xl">
             <div className="fixed -z-[5] left-0 top-0 w-screen h-screen bg-gradient-to-tr from-indigo-600/0 to-purple-500/15" />
             <h1 className="block text-4xl font-bold uppercase text-white tracking-widest">Nexst<span className="text-lg">.js</span></h1>
-            <h2 className="block font-bold uppercase text-base">Beta 1.1.4</h2>
+            <h2 className="block font-bold uppercase text-base">Beta 1.1.6</h2>
             <p className="text-white">{localization("hero")}</p>
-            <div className="flex gap-3 mt-4">
-            <button onClick={() => showToast("Test Pending Toast", "message test toast", "pending")} className="duration-300 px-4 py-1 bg-white/5 rounded border border-white border-opacity-15 hover:bg-sky-500">Pending Toast</button>
-                <button onClick={() => showToast("Test Success Toast", "message test toast", "success")} className="duration-300 px-4 py-1 bg-white/5 rounded border border-white border-opacity-15 hover:bg-green-600">Success Toast</button>
-                <button onClick={() => showToast("Test Error Toast", "message test toast", "error")} className="duration-300 px-4 py-1 bg-white/5 rounded border border-white border-opacity-15 hover:bg-red-700">Error Toast</button>
-                <button onClick={() => showToast("Test Warning Toast", "message test toast", "warning")} className="duration-300 px-4 py-1 bg-white/5 rounded border border-white border-opacity-15 hover:bg-yellow-600">Warning Toast</button>
-                <button onClick={() => showToast("Test Info Toast", "message test toast", "info")} className="duration-300 px-4 py-1 bg-white/5 rounded border border-white border-opacity-15 hover:bg-gray-500">Info Toast</button>
-            </div>
             <div className="flex gap-2 items-center mt-4">
                 {languages.map((language,index) =>
                     <Link

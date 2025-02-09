@@ -1,34 +1,30 @@
-import { Injectable, NotAcceptableException, NotFoundException } from "@nestjs/common";
-import { Prisma } from "@prisma/client";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { DatabaseService } from "../../database/database.service";
 import { UploadService } from "../../upload/upload.service";
-import returnImageObj from "./return.image.obj";
+import returnFileStorageObj from "../return.file.storage.obj";
 
 @Injectable()
 export class ImagesService {
-    constructor(
-      private readonly DBService: DatabaseService,
-      private readonly uploadService: UploadService,
-    ){}
+  constructor(
+    private readonly DBService: DatabaseService,
+    private readonly uploadService: UploadService,
+  ){}
 
-    async findImages(){
-      return await this.DBService.fileStorage.findMany({where: {type: "image"}, select:returnImageObj});
-    }
+  async findAll(){
+      const data = await this.DBService.fileStorage.findMany({where: {type: "image"}, select:returnFileStorageObj});
+      const meta = {};
+      return { data, meta }
+  }
 
-    async findById(id: number){
-      const image = await this.DBService.fileStorage.findFirstOrThrow({where:{id}, select:returnImageObj});
-      if (!image) throw new NotFoundException("Image Not Found!");
-      return image;
-    }
+  async findById(id: number){
+      const file = await this.DBService.fileStorage.findFirstOrThrow({where:{id, type: "image"}, select:returnFileStorageObj});
+      if (!file) throw new NotFoundException("File Not Found!");
+      return file;
+  }
 
-    // async update(id: number, DTO:Prisma.ImageUpdateInput){
-    //   await this.findById(id);
-    //   return await this.DBService.image.update({where:{id},data:DTO});
-    // }
-
-    async remove(id: number){
+  async remove(id: number){
       const file = await this.findById(id);
       await this.uploadService.removeFiles(`${file.name}.${file.extension}`);
       return await this.DBService.fileStorage.delete({where:{id}})
-    }
+  }
 }

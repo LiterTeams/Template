@@ -1,5 +1,9 @@
 import { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 
+interface SearchProps extends InputHTMLAttributes<HTMLInputElement> {
+    prefix?: string;
+}
+
 interface InputGroupProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
     error?: string | null;
@@ -12,4 +16,4 @@ interface TextareaGroupProps extends TextareaHTMLAttributes<HTMLTextAreaElement>
     isValid?: boolean;
 }
 
-export type { InputGroupProps, TextareaGroupProps } 
+export type { InputGroupProps, TextareaGroupProps, SearchProps } 

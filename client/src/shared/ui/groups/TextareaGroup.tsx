@@ -1,6 +1,6 @@
 "use client";
 import { FC } from "react";
-import Textarea from "../inputs/Textarea";
+import { Textarea } from "../inputs";
 
 import { TextareaGroupProps } from "@shared/types/system/group.interfaces";
 import clsx from "clsx";
@@ -16,5 +16,4 @@ export const TextareaGroup: FC<TextareaGroupProps> = ({children, className = "",
             {!isValid && <span className="block text-red-600 font-xs pointer-events-none">{error}</span>}
         </>
     )
-
 }

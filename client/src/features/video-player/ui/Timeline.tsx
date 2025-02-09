@@ -1,13 +1,12 @@
 import { FC, MouseEvent } from "react";
 
-import ProgressBar from "./ProgressBar";
-import TimeLineChapters from "./TimeLineChapters";
+import { ProgressBar, TimeLineChapters } from "./";
 
-import durationConver from "@app/shared/lib/helpers/system/durationConver";
+import { durationConver } from "@shared/lib/helpers/system";
 
 import { TimelineControlsProps } from "../types/player";
 
-const Timeline: FC<TimelineControlsProps> = ({...props}) => {
+export const Timeline: FC<TimelineControlsProps> = ({...props}) => {
 
     const { currentTime, totalTime, progress, onSeek } = props;
     const currentDuration = durationConver(currentTime);
@@ -34,5 +33,3 @@ const Timeline: FC<TimelineControlsProps> = ({...props}) => {
         </div>
     )
 }
-
-export default Timeline;

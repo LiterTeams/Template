@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { RiPlayCircleFill, RiPauseCircleFill, RiRepeat2Fill, RiRewindFill, RiVolumeDownFill, RiVolumeMuteFill, RiSpeedFill} from "react-icons/ri";
 
-import Button from "@shared/ui/buttons/Button";
+import { Button } from "@shared/ui/buttons";
 
 import { PlayControlsProps } from "../types/player";
 
-const PlayControls: FC<PlayControlsProps> = ({...props}) => {
+export const PlayControls: FC<PlayControlsProps> = ({...props}) => {
 
     const { isPlaying, isEnded, isPictureToPicture, isMuted, iconSize = 18, volume } = props;
     const { handleTogglePlay, handelRepeat, toggleMute, handleBackwardSkip, handleForwardSkip, handelVolumeChange } = props;
@@ -40,5 +40,3 @@ const PlayControls: FC<PlayControlsProps> = ({...props}) => {
         </div>
     )
 }
-
-export default PlayControls;

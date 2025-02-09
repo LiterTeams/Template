@@ -2,125 +2,132 @@ import { Injectable, InternalServerErrorException, UnauthorizedException } from 
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { RedisService } from "../redis/redis.service";
-import { Request, Response } from "express";
+import { SessionService } from "../session/session.service";
+import { Response } from "express";
 
-import errors from "src/const/errors";
-
-import { TokenProps } from "src/types/system/tokens.interfaces";
+import { TokenProps, PayloadProps } from "src/types/system/tokens.interfaces";
 
 import timeToSeconds from "src/lib/timeToSeconds";
-
-interface PayloadIF {
-    id:number;
-    role:string;
-}
+import timeToMs from "src/lib/timeToMs";
 
 @Injectable()
 export class TokenService {
     
-    private readonly jwtOptions = {
-        secret: this.configService.get<string>("secretJWT", "defaultSecret"),
-        expireAccessToken: this.configService.get<string>("expireAccessJWT", "15m"),
-        expireRefreshToken: this.configService.get<string>("expireRefreshJWT", "7d"),
+    private readonly secretJWT = this.configService.get<string>("secretJWT", "defaultSecret");
+    private readonly httpOnly = this.configService.get<boolean>("sessionHTTPOnly", true);
+    private readonly secure = this.configService.get<boolean>("sessionSecure", true);
+    private readonly sameSite = this.configService.get<string>("sessionSameSite", "lax") as "lax" | "strict" | "none";
+
+    private readonly accessTokenTTL = this.configService.get<string>("expireAccessJWT", "15m");
+    private readonly refreshTokenTTL = this.configService.get<string>("expireRefreshJWT", "7d");
+
+    private readonly accessTokenTTLS = timeToSeconds(this.accessTokenTTL); // Time To Life Seconds;
+    private readonly accessTokenTTLMS = timeToMs(this.accessTokenTTL); // Time To Life Mile Seconds;
+
+    private readonly accessTokenJWTOptions = {
+        secret: this.secretJWT,
+        expiresIn: this.accessTokenTTL,
+    }
+    private readonly refreshTokenJWTOptions = {
+        secret: this.secretJWT,
+        expiresIn: this.refreshTokenTTL,
+    }
+
+    private readonly cookieOptions = {
+        httpOnly: this.httpOnly,
+        secure: this.secure,
+        maxAge: this.accessTokenTTLMS,
+        sameSite: this.sameSite,
     };
     
     constructor(
         private readonly jwtService: JwtService,
         private readonly redisService: RedisService,
         private readonly configService: ConfigService,
+        private readonly sessionService: SessionService,
     ) {}
 
-    public async generateTokens(payload:PayloadIF): Promise<TokenProps> {
+    public async generateTokens(payload:PayloadProps): Promise<TokenProps> {
         const accessToken = await this.generateAccessToken(payload);
         const refreshToken = await this.generateRefreshToken(payload);
-        await this.redisService.set(`refresh:${payload.id}`, refreshToken, timeToSeconds(this.jwtOptions.expireRefreshToken));
+        await this.redisService.setRefreshToken(payload.id, refreshToken);
         return { accessToken, refreshToken }
     }
 
-    private async generateAccessToken(payload:PayloadIF) {
-        const options = { secret: this.jwtOptions.secret, expiresIn: this.jwtOptions.expireAccessToken}
-        return this.jwtService.sign(payload, options);
+    private async generateAccessToken(payload:PayloadProps) {
+        return this.jwtService.sign(payload, this.accessTokenJWTOptions);
     }
 
-    private async generateRefreshToken(payload:PayloadIF) {
-        const options = { secret: this.jwtOptions.secret, expiresIn: this.jwtOptions.expireRefreshToken}
-        return this.jwtService.sign(payload, options);
+    private async generateRefreshToken(payload:PayloadProps) {
+        return this.jwtService.sign(payload, this.refreshTokenJWTOptions);
     }
 
-    private getRefreshToken(user_id: string | number) {
-        return this.redisService.get(`refresh:${user_id}`);
+    private async getRefreshToken(userId: string | number) {
+        const token = await this.redisService.getRefreshToken(userId);
+        const TTL = await this.redisService.getRefreshTokenTTL(userId);
+        return { token, TTL };
     }
 
-    private async getRefreshTokenTTL(user_id: string | number) {
-        return await this.redisService.timeToLife(`refresh:${user_id}`);
-    }
-
-    public async refreshAccessToken(user_id: number, req: Request, res: Response) {
-        const options = { secret: this.jwtOptions.secret }
+    public async refreshAccessToken(userId: number, accessToken?: string) {
         try {
-
-            const storedRefreshToken = await this.getRefreshToken(user_id);
-            if (!storedRefreshToken) throw new UnauthorizedException("Invalid refresh token");
-
-            const decoded = await this.jwtService.verifyAsync(storedRefreshToken, options);
-
-            const payload = {id: user_id, role: decoded.role}
+            const { token: storedRefreshToken, TTL: refreshTokenTTL } = await this.getRefreshToken(userId);
+            const { role } = await this.jwtService.verifyAsync(storedRefreshToken, { secret: this.secretJWT });
+            
+            const payload = {id: userId, role: role}
             const newAccessToken = await this.generateAccessToken(payload);
             
-            const refreshTokenTTL = await this.getRefreshTokenTTL(user_id);
             if (refreshTokenTTL === -2){
-                const authHeader = req.headers["authorization"];
-                const accessToken = authHeader?.split(" ")[1];
-                await this.logout(user_id, accessToken);
-                if (req.session){
-                    req.session.destroy((error) => {
-                        if (error) throw new InternalServerErrorException(errors.sessionDestroy.message);
-                        res.clearCookie(this.configService.get<string>("sessionName", "session"));
-                    });
-                }
-                throw new UnauthorizedException("Invalid refresh token");
-            }
-            let newRefreshToken: string | undefined;
-
-            if (refreshTokenTTL < 60 * 60) {
-                newRefreshToken = await this.generateRefreshToken(payload);
-                await this.redisService.set(`refresh:${user_id}`, newRefreshToken, timeToSeconds(this.jwtOptions.expireRefreshToken));
+                await this.logout(userId, accessToken);
+                await this.sessionService.destroySession(userId);
+                throw new UnauthorizedException("Refresh token expired");
             }
 
-            return { accessToken: newAccessToken };
+            if (refreshTokenTTL < timeToSeconds("1h")) {
+                await this.redisService.setRefreshToken(userId, await this.generateRefreshToken(payload));
+            }
+
+            return newAccessToken;
         } catch( error ) {
             throw new UnauthorizedException("Invalid or expired refresh token");
         }
     }
 
-    public async validateRefreshToken(user_id: string, token: string): Promise<boolean> {
-        const storedToken = await this.redisService.get(`refresh:${user_id}`);
-        return storedToken === token;
+    public async validateRefreshToken(userId: string, refreshToken: string): Promise<boolean> {
+        const { token, TTL } = await this.getRefreshToken(userId);
+        return token === refreshToken && TTL > 0;
     }
 
     public async validateAccessToken(accessToken: string) {
-        if (await this.redisService.isTokenBlacklisted(accessToken)) {
-            throw new UnauthorizedException("Access token is invalid or expired");
-        }
+        if (await this.redisService.isTokenBlacklisted(accessToken)) 
+            throw new UnauthorizedException("Token is blacklisted");
         try {
-            return this.jwtService.verify(accessToken, { secret: this.jwtOptions.secret });
-        } catch {
+            return this.jwtService.verify(accessToken, { secret: this.secretJWT });
+        } catch (error) {
+            if (error.name === "TokenExpiredError") 
+                throw new UnauthorizedException("Access token expired");
+            if (error.name === "JsonWebTokenError") 
+                throw new UnauthorizedException("Invalid access token");
             throw new UnauthorizedException("Access token is invalid or expired");
         }
     }
 
-    public async logout(user_id: string | number, accessToken: string) {
-        if (!(await this.redisService.del(`refresh:${user_id}`))) {
-            throw new InternalServerErrorException("Не удалось выйти из системы. Возможно ошибка на сервере");
-        }
-        await this.blacklistToken(accessToken, timeToSeconds(this.jwtOptions.expireAccessToken));
+    public async logout(userId: string | number, accessToken: string) {
+        await this.getRefreshToken(userId);
+        await this.redisService.removeRefreshToken(userId);
+        await this.sessionService.destroySession(userId);
+        await this.moveToBlacklistToken(accessToken);
     }
     
-    public async blacklistToken(token: string, TTL: number) {
-        return await this.redisService.blacklistToken(token, TTL);
+    public async moveToBlacklistToken(accessToken: string) {
+        if (!accessToken) return;
+        await this.redisService.blacklistToken(accessToken, this.accessTokenTTLS);
     }
     
     public async isTokenBlacklisted(token: string): Promise<boolean> {
         return await this.redisService.isTokenBlacklisted(token);
+    }
+
+    public async saveAcceesToken(accessToken: string, res: Response) {
+        return res.cookie("accessToken", accessToken, this.cookieOptions);
     }
 }

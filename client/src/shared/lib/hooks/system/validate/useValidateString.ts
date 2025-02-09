@@ -1,16 +1,15 @@
 "use client";
 import { useCallback } from "react";
-import { ValidateOptionsProps } from "@shared/types/system/validate.interfaces";
-import useError from "../general/useError";
-import checkLanguage from "@shared/lib/helpers/system/checkLanguage";
-import hasSpace from "@shared/lib/helpers/system/hasSpace";
-import isLowerCase from "@shared/lib/helpers/system/isLowerCase";
-import isUpperCase from "@shared/lib/helpers/system/isUpperCase";
-import isUpperCaseFirstLetter from "@shared/lib/helpers/system/isUpperCaseFirstLetter";
-import hasSpecialCharacters from "@shared/lib/helpers/system/hasSpecialCharacters";
-import hasDigits from "@shared/lib/helpers/system/hasDigits";
-import hasLetters from "@shared/lib/helpers/system/hasLetters";
+import { useError } from "../general";
+
+import { 
+    checkLanguage, hasSpace, isLowerCase, hasLetters, hasDigits, 
+    isUpperCase, isUpperCaseFirstLetter, hasSpecialCharacters,
+} from "@shared/lib/helpers/system";
+
 import { formatPatterns } from "@shared/config/patterns";
+
+import { ValidateOptionsProps } from "@shared/types/system/validate.interfaces";
 
 const ERROR_MESSAGES = {
     language: "language",
@@ -31,7 +30,7 @@ const ERROR_MESSAGES = {
     uuid: "uuid",
 } as const;
 
-export default function useValidateString(options?: ValidateOptionsProps) {
+export const useValidateString = (options?: ValidateOptionsProps) => {
     const { error, setError, clearError } = useError(null);
 
     const validate = useCallback((inputValue: string): boolean => {

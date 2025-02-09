@@ -2,15 +2,8 @@
 import { FC, useRef } from "react";
 import Image from "next/image";
 
-import usePlayerState from "./hooks/usePlayerState";
-import usePlayerPlayback from "./hooks/usePlayerPlayback";
-import usePlayerVFX from "./hooks/usePlayerVFX";
-import usePlayerUI from "./hooks/usePlayerUI";
-
-import Controls from "./ui/Controls";
-import Video from "./ui/Video";
-import OverlaySourceError from "./ui/OverlaySourceError";
-import OverlayVFX from "./ui/OverlayVFX";
+import { usePlayerState, usePlayerPlayback, usePlayerVFX, usePlayerUI  } from "./hooks";
+import { OverlaySourceError, OverlayVFX, Controls, Video } from "./ui";
 
 import { PlayerProps } from "./types/player";
 
@@ -39,9 +32,10 @@ const Player: FC<PlayerProps> = ({...props}) => {
 
     const player = usePlayerState(playerData);
     const playbackData = {videoRef, timeSkip, ...player}
+    const uiData = {playerRef: playerRef, isPictureToPicture: player.isPictureToPicture, setIsFullscreen: player.setIsFullscreen, setIsPictureToPicture: player.setIsPictureToPicture}
     const vfx = usePlayerVFX(vfxData);
     const playback = usePlayerPlayback(playbackData);
-    const ui = usePlayerUI(playerRef, player.isPictureToPicture, player.setIsFullscreen, player.setIsPictureToPicture);
+    const ui = usePlayerUI(uiData);
 
     const videoProps = { 
         ref: videoRef,

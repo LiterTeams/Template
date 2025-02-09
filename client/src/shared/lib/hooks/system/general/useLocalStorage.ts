@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 const isServer = typeof window === "undefined";
 
-export default function useLocalStorage<T>(key: string, initialValue: T) {
+export const useLocalStorage = <T>(key: string, initialValue: T) => {
   const [state, setState] = useState<T>(() => {
     if (isServer) return initialValue;
     try {

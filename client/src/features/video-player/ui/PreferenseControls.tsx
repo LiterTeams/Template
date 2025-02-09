@@ -7,13 +7,12 @@ import {
     RiFullscreenExitFill,
 } from "react-icons/ri";
 
-import Button from "@shared/ui/buttons/Button";
-import DropdownMenu from "@shared/ui/dropdown/DropdownMenu";
-import DropdownMenuContent from "@shared/ui/dropdown/DropdownMenuContent";
+import { Button } from "@shared/ui/buttons";
+import { DropdownMenu, DropdownMenuContent } from "@shared/ui/dropdown";
 
 import { PreferenseControlsProps } from "../types/player";
 
-const PreferenseControls: FC<PreferenseControlsProps> = ({...props}) => {
+export const PreferenseControls: FC<PreferenseControlsProps> = ({...props}) => {
 
     const [dropdown, setDropdown] = useState<"quality" | "voiceover" | "subtitles" | "vfx" | "settings" | null>(null);
 
@@ -112,5 +111,3 @@ const PreferenseControls: FC<PreferenseControlsProps> = ({...props}) => {
         </>
     )
 }
-
-export default PreferenseControls;
