@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { Link } from "@app/i18n/routing";
+import Link from "next/link";
 
 import { FaBurger } from "react-icons/fa6";
 

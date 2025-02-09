@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode } from "react";
-import { usePathname } from "@app/i18n/routing";
+import { usePathname } from "next/navigation";
 
 export const PageProvider = ({children}:{readonly children:ReactNode}) => {
 

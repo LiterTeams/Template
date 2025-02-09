@@ -1,6 +1,5 @@
 "use client";
 import { FC, FormEvent } from "react";
-import { useTranslations } from "next-intl";
 import { useSignUpMutation } from "../hooks";
 import { useEmail, useText } from "@shared/lib/hooks/system/forms";
 import { usePassword } from "@shared/lib/hooks/system/forms";
@@ -13,9 +12,6 @@ import { InputGroup } from "@shared/ui/groups";
 import { ButtonTogglePasswordVisible as Button } from "@shared/ui/buttons";
 
 export const SignUpForm: FC = () => {
-
-    const localization = useTranslations("Words");
-
     const { signUp, isLoadingSignUp } = useSignUpMutation();
     const Nickname = useText("",{required: true, lengthBetween: [6,36]});
     const Email = useEmail("");
@@ -37,7 +33,7 @@ export const SignUpForm: FC = () => {
     return(
         <OauthFormWrapper isSignUp handleSubmit={onSubmit}>
             <InputGroup
-                label={localization("Nickname")}
+                label="Никнейм"
                 disabled={isLoadingSignUp}
                 placeholder="Liter Teams"
                 value={Nickname.value}
@@ -47,7 +43,7 @@ export const SignUpForm: FC = () => {
                 onChange={Nickname.handleChange}
             />
             <InputGroup
-                label={localization("Email")}
+                label="Электронная почта"
                 disabled={isLoadingSignUp}
                 placeholder="test@gmail.com"
                 value={Email.value}
@@ -58,7 +54,7 @@ export const SignUpForm: FC = () => {
             />
             <InputGroup
                 className="relative"
-                label={localization("Password")}
+                label="Пароль"
                 disabled={isLoadingSignUp}
                 placeholder="********"
                 type={Password.isVisible ? "text" : "password"}
@@ -72,7 +68,7 @@ export const SignUpForm: FC = () => {
             </InputGroup>
             <InputGroup
                 className="relative"
-                label={localization("Password-Repeat")}
+                label="Повтор пароля"
                 disabled={isLoadingSignUp}
                 placeholder="********"
                 type={RepeatPassword.isVisible ? "text" : "password"}

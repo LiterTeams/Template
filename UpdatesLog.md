@@ -21,7 +21,8 @@
 
 ### Удалено (Client)
 1. Библиотека - react-toastify;
-2. SoundProvider (Думаю в 99% нахер не нужен будет).
+2. SoundProvider (Думаю в 99% нахер не нужен будет);
+3. i18n.
 
 ## NexstJS - beta ver 1.1.4 | 7.02.2025
 

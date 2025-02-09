@@ -1,6 +1,5 @@
 "use client";
 import { FC, FormEvent } from "react";
-import { useTranslations } from "next-intl";
 import { useSignInMutation } from "../hooks";
 import { useEmail } from "@shared/lib/hooks/system/forms";
 import { usePassword } from "@shared/lib/hooks/system/forms";
@@ -13,8 +12,6 @@ import { InputGroup } from "@shared/ui/groups";
 import { ButtonTogglePasswordVisible as Button } from "@shared/ui/buttons";
 
 export const SignInForm: FC = () => {
-    const localization = useTranslations("Words");
-
     const { signIn, isLoadingSignIn } = useSignInMutation();
     const Email = useEmail("");
     const Password = usePassword("",{lengthBetween: undefined});
@@ -33,7 +30,7 @@ export const SignInForm: FC = () => {
     return(
         <OauthFormWrapper isSignIn handleSubmit={onSubmit}>
             <InputGroup
-                label={localization("Email")}
+                label="Электронная почта"
                 disabled={isLoadingSignIn}
                 placeholder="test@gmail.com"
                 value={Email.value}
@@ -44,7 +41,7 @@ export const SignInForm: FC = () => {
             />
             <InputGroup
                 className="relative"
-                label={localization("Password")}
+                label="Пароль"
                 disabled={isLoadingSignIn}
                 placeholder="********"
                 type={Password.isVisible ? "text" : "password"}
